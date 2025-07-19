@@ -46,5 +46,13 @@
 }
 
 .key {
-  padding: 1.2em 1.2em;
+  padding: 2em 1.6em;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  flex: 50%;
 }

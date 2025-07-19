@@ -158,14 +158,15 @@ export const FingeringPractice = () => {
 
   return (
     <div>
-      <div>
-        {gameStarted ? <CountdownTimer initialTime={60} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
-        <h4>Current score = {score}</h4>
+      <div class="row">
+        <div class="column">  
+          <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
+        </div>
+        <div class="column">
+          {gameStarted ? <CountdownTimer initialTime={60} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
+          <h4>Current score = {score}</h4>
+        </div>
       </div>
-      <div>
-        <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
-      </div>
-      <p>'o' for all open, 'c' for clear</p>
       <div>
         <button className="key"
                 onMouseDown={() => handleButtonClickOn("button3")}
