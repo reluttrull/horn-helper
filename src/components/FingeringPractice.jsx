@@ -1,18 +1,41 @@
 import React, { useEffect, useCallback, useState } from "react";
+import fingerings from '../data/fingeringChart.json';
 
 export const FingeringPractice = () => {
   //shortcuts
   const handleKeyPress = useCallback((event) => {
     if (event.key == ' ') {
-      handleButtonClick("buttonT");
+      handleButtonClickOn("buttonT");
     } else if (event.key == 'b') {
-      handleButtonClick("button1");
+      handleButtonClickOn("button1");
     } else if (event.key == 'h') {
-      handleButtonClick("button2");
+      handleButtonClickOn("button2");
     } else if (event.key == 'y') {
-      handleButtonClick("button3");
+      handleButtonClickOn("button3");
     } else if (event.key == 'o') {
-      handleButtonClick("buttonO");
+      handleButtonClickOn("buttonO");
+    } else if (event.key == 'c') {
+      setButtonStates({
+        buttonT: false,
+        button1: false,
+        button2: false,
+        button3: false,
+        buttonO: false
+      });
+    }
+  }, []);
+
+  const handleKeyUp = useCallback((event) => {
+    if (event.key == ' ') {
+      handleButtonClickOff("buttonT");
+    } else if (event.key == 'b') {
+      handleButtonClickOff("button1");
+    } else if (event.key == 'h') {
+      handleButtonClickOff("button2");
+    } else if (event.key == 'y') {
+      handleButtonClickOff("button3");
+    } else if (event.key == 'o') {
+      handleButtonClickOff("buttonO");
     } else if (event.key == 'c') {
       setButtonStates({
         buttonT: false,
@@ -32,11 +55,11 @@ export const FingeringPractice = () => {
   }, [handleKeyPress]);
 
   useEffect(() => {
-    document.addEventListener('keyup', handleKeyPress);
+    document.addEventListener('keyup', handleKeyUp);
     return () => {
-      document.removeEventListener('keyup', handleKeyPress);
+      document.removeEventListener('keyup', handleKeyUp);
     };
-  }, [handleKeyPress]);
+  }, [handleKeyUp]);
 
   //button logic
   const [buttonStates, setButtonStates] = useState({
@@ -47,10 +70,17 @@ export const FingeringPractice = () => {
     buttonO: false
   });
 
-  const handleButtonClick = (button) => {
+  const handleButtonClickOn = (button) => {
     setButtonStates((prevState) => ({
       ...prevState,
-      [button]: !prevState[button],
+      [button]: true,
+    }));
+  };
+
+  const handleButtonClickOff = (button) => {
+    setButtonStates((prevState) => ({
+      ...prevState,
+      [button]: false,
     }));
   };
 
@@ -87,7 +117,7 @@ export const FingeringPractice = () => {
     } else if (buttonT && button1 && button2 && button3) {
       return "T123";
     } else if (buttonO) {
-      return "open";
+      return "0";
     } else {
       return "nothing selected";
     }
@@ -96,26 +126,30 @@ export const FingeringPractice = () => {
   return (
     <div>
       <div>
-        <button onClick={() => handleButtonClick("button3")}>
+        <img className="flashcard" src={fingerings[0].img} alt={fingerings[0].noteId} />
+      </div>
+      <div>
+        <button onClick={() => handleButtonClickOn("button3")}>
           Button 3 {buttonStates.button3 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClick("button2")}>
+        <button onClick={() => handleButtonClickOn("button2")}>
           Button 2 {buttonStates.button2 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClick("button1")}>
+        <button onClick={() => handleButtonClickOn("button1")}>
           Button 1 {buttonStates.button1 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClick("buttont")}>
+        <button onClick={() => handleButtonClickOn("buttont")}>
           Button T {buttonStates.buttonT ? "ON" : "OFF"}
         </button>
       </div>
       <p>{checkCombination()}</p>
+      <p>{checkCombination() == fingerings[0].defaultFingering ? "Got it!" : "Not quite"}</p>
     </div>
   );
 };
