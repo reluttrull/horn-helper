@@ -21,13 +21,7 @@ export const FingeringPractice = () => {
     } else if (event.key == 'o') {
       handleButtonClickOn("buttonO");
     } else if (event.key == 'c') {
-      setButtonStates({
-        buttonT: false,
-        button1: false,
-        button2: false,
-        button3: false,
-        buttonO: false
-      });
+      handleClear();
     }
   }, []);
 
@@ -75,6 +69,16 @@ export const FingeringPractice = () => {
     button3: false,
     buttonO: false
   });
+
+  const handleClear = () => {
+    setButtonStates({
+      buttonT: false,
+      button1: false,
+      button2: false,
+      button3: false,
+      buttonO: false
+    });
+  }
 
   const handleButtonClickOn = (button) => {
     setButtonStates((prevState) => ({
@@ -163,23 +167,45 @@ export const FingeringPractice = () => {
       </div>
       <p>'o' for all open, 'c' for clear</p>
       <div>
-        <button onClick={() => handleButtonClickOn("button3")}>
+        <button onMouseDown={() => handleButtonClickOn("button3")}
+                onTouchStart={() => handleButtonClickOn("button3")}
+                onMouseUp={() => handleButtonClickOff("button3")}
+                onTouchEnd={() => handleButtonClickOff("button3")}>
           3rd valve (y) {buttonStates.button3 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClickOn("button2")}>
+        <button onMouseDown={() => handleButtonClickOn("button2")}
+                onTouchStart={() => handleButtonClickOn("button2")}
+                onMouseUp={() => handleButtonClickOff("button2")}
+                onTouchEnd={() => handleButtonClickOff("button2")}>
           2nd valve (h) {buttonStates.button2 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClickOn("button1")}>
+        <button onMouseDown={() => handleButtonClickOn("button1")}
+                onTouchStart={() => handleButtonClickOn("button1")}
+                onMouseUp={() => handleButtonClickOff("button1")}
+                onTouchEnd={() => handleButtonClickOff("button1")}>
           1st valve (b) {buttonStates.button1 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
-        <button onClick={() => handleButtonClickOn("buttont")}>
+        <button onMouseDown={() => handleButtonClickOn("buttonT")}
+                onTouchStart={() => handleButtonClickOn("buttonT")}
+                onMouseUp={() => handleButtonClickOff("buttonT")}
+                onTouchEnd={() => handleButtonClickOff("buttonT")}>
           trigger (spacebar) {buttonStates.buttonT ? "ON" : "OFF"}
+        </button>
+        <button onMouseDown={() => handleButtonClickOn("buttonO")}
+                onTouchStart={() => handleButtonClickOn("buttonO")}
+                onMouseUp={() => handleButtonClickOff("buttonO")}
+                onTouchEnd={() => handleButtonClickOff("buttonO")}>
+          open (o) {buttonStates.buttonO ? "ON" : "OFF"}
+        </button>
+        <button onMouseDown={() => handleClear()}
+                onTouchStart={() => handleClear()}>
+          clear (c)
         </button>
       </div>
       <p>{checkCombination()}</p>
