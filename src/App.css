@@ -42,5 +42,9 @@
 }
 
 .flashcard {
-  max-height: 150px;
+  max-height: 100px;
+}
+
+.key {
+  padding: 1.2em 1.2em;
 }
