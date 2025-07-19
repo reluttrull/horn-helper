@@ -1,0 +1,34 @@
+[
+  {
+    "noteId": "c4",
+    "defaultFingering": "0"
+  },
+  {
+    "noteId": "d4",
+    "defaultFingering": "1"
+  },
+  {
+    "noteId": "e4",
+    "defaultFingering": "0"
+  },
+  {
+    "noteId": "f4",
+    "defaultFingering": "1"
+  },
+  {
+    "noteId": "g4",
+    "defaultFingering": "0"
+  },
+  {
+    "noteId": "a4",
+    "defaultFingering": "T12"
+  },
+  {
+    "noteId": "b4",
+    "defaultFingering": "T2"
+  },
+  {
+    "noteId": "c5",
+    "defaultFingering": "T"
+  }
+]
