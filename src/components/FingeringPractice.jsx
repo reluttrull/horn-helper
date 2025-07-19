@@ -1,7 +1,13 @@
-import React, { useEffect, useCallback, useState } from "react";
+import React, { useEffect, useCallback, useState, useRef } from "react";
+import { CountdownTimer } from './CountdownTimer.jsx';
 import fingerings from '../data/fingeringChart.json';
 
 export const FingeringPractice = () => {
+  const [gameStarted, setGameStarted] = useState(false);
+  const [score, setScore] = useState(0);
+  const [displayCard, setDisplayCard] = useState(0);
+  let currentCard = useRef(0);
+
   //shortcuts
   const handleKeyPress = useCallback((event) => {
     if (event.key == ' ') {
@@ -84,72 +90,99 @@ export const FingeringPractice = () => {
     }));
   };
 
+
+	const answerClick = (isCorrect) => {
+    //move on
+		currentCard.current = parseInt(Math.random() * fingerings.length);
+    console.log(currentCard.current);
+    setDisplayCard(currentCard.current);
+    //make changes based on selection
+		if (isCorrect) {
+			setScore(score + 1);
+		}
+    else {
+      setScore(score - 1);
+    }     
+	};
+
   const checkCombination = () => {
     const { buttonT, button1, button2, button3, buttonO } = buttonStates;
+    let combination = "";
     if (!buttonT && button1 && !button2 && !button3) {
-      return "1";
+      combination = "1";
     } else if (!buttonT && !button1 && button2 && !button3) {
-      return "2";
+      combination = "2";
     } else if (!buttonT && !button1 && !button2 && button3) {
-      return "3";
+      combination = "3";
     } else if (!buttonT && button1 && button2 && !button3) {
-      return "12";
+      combination = "12";
     } else if (!buttonT && !button1 && button2 && button3) {
-      return "23";
+      combination = "23";
     } else if (!buttonT && button1 && !button2 && button3) {
-      return "13";
+      combination = "13";
     } else if (!buttonT && button1 && button2 && button3) {
-      return "123";
+      combination = "123";
     } else if (buttonT && !button1 && !button2 && !button3) {
-      return "T0";
+      combination = "T0";
     } else if (buttonT && button1 && !button2 && !button3) {
-      return "T1";
+      combination = "T1";
     } else if (buttonT && !button1 && button2 && !button3) {
-      return "T2";
+      combination = "T2";
     } else if (buttonT && !button1 && !button2 && button3) {
-      return "T3";
+      combination = "T3";
     } else if (buttonT && button1 && button2 && !button3) {
-      return "T12";
+      combination = "T12";
     } else if (buttonT && !button1 && button2 && button3) {
-      return "T23";
+      combination = "T23";
     } else if (buttonT && button1 && !button2 && button3) {
-      return "T13";
+      combination = "T13";
     } else if (buttonT && button1 && button2 && button3) {
-      return "T123";
+      combination = "T123";
     } else if (buttonO) {
-      return "0";
+      combination = "0";
     } else {
-      return "nothing selected";
+      combination = "nothing selected";
     }
+    if (combination == fingerings[currentCard.current].defaultFingering) answerClick(true);
+    return combination;
   };
+
+  useEffect(() => {
+		currentCard.current = parseInt(Math.random() * fingerings.length);
+    setDisplayCard(currentCard.current);
+  }, []);
 
   return (
     <div>
       <div>
-        <img className="flashcard" src={fingerings[0].img} alt={fingerings[0].noteId} />
+        {gameStarted ? <CountdownTimer initialTime={60} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
+        <h4>Current score = {score}</h4>
       </div>
       <div>
+        <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
+      </div>
+      <p>'o' for all open, 'c' for clear</p>
+      <div>
         <button onClick={() => handleButtonClickOn("button3")}>
-          Button 3 {buttonStates.button3 ? "ON" : "OFF"}
+          3rd valve (y) {buttonStates.button3 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
         <button onClick={() => handleButtonClickOn("button2")}>
-          Button 2 {buttonStates.button2 ? "ON" : "OFF"}
+          2nd valve (h) {buttonStates.button2 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
         <button onClick={() => handleButtonClickOn("button1")}>
-          Button 1 {buttonStates.button1 ? "ON" : "OFF"}
+          1st valve (b) {buttonStates.button1 ? "ON" : "OFF"}
         </button>
       </div>
       <div>
         <button onClick={() => handleButtonClickOn("buttont")}>
-          Button T {buttonStates.buttonT ? "ON" : "OFF"}
+          trigger (spacebar) {buttonStates.buttonT ? "ON" : "OFF"}
         </button>
       </div>
       <p>{checkCombination()}</p>
-      <p>{checkCombination() == fingerings[0].defaultFingering ? "Got it!" : "Not quite"}</p>
     </div>
   );
 };
