@@ -1,42 +1,42 @@
 [
   {
     "noteId": "c4",
-    "img": "../../public/images/c4.png",
+    "img": "/images/c4.png",
     "defaultFingering": "0"
   },
   {
     "noteId": "d4",
-    "img": "../../public/images/d4.png",
+    "img": "/images/d4.png",
     "defaultFingering": "1"
   },
   {
     "noteId": "e4",
-    "img": "../../public/images/e4.png",
+    "img": "/images/e4.png",
     "defaultFingering": "0"
   },
   {
     "noteId": "f4",
-    "img": "../../public/images/f4.png",
+    "img": "/images/f4.png",
     "defaultFingering": "1"
   },
   {
     "noteId": "g4",
-    "img": "../../public/images/g4.png",
+    "img": "/images/g4.png",
     "defaultFingering": "0"
   },
   {
     "noteId": "a4",
-    "img": "../../public/images/a4.png",
+    "img": "/images/a4.png",
     "defaultFingering": "T12"
   },
   {
     "noteId": "b4",
-    "img": "../../public/images/b4.png",
+    "img": "/images/b4.png",
     "defaultFingering": "T2"
   },
   {
     "noteId": "c5",
-    "img": "../../public/images/c5.png",
+    "img": "/images/c5.png",
     "defaultFingering": "T0"
   }
 ]
