@@ -42,6 +42,7 @@
 }
 
 .flashcard {
+  max-height: 2in;
   max-width: 100%;
 }
 
