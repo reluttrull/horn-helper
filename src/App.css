@@ -42,13 +42,13 @@
 }
 
 .flashcard {
-  max-height: 2in;
+  max-height: 1.5in;
   max-width: 100%;
 }
 
 .key {
   min-height:0.95in;
-  max-height:1.25in;
+  max-height:1.2in;
   width: 1.45in;
 }
 

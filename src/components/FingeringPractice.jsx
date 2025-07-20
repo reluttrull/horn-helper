@@ -7,6 +7,7 @@ export const FingeringPractice = () => {
   const [score, setScore] = useState(0);
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
+  const [timerRunning, setTimerRunning] = useState(null);
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
@@ -101,11 +102,11 @@ export const FingeringPractice = () => {
     console.log(currentCard.current);
     setDisplayCard(currentCard.current);
     //make changes based on selection
-		if (isCorrect) {
+		if (isCorrect && timerRunning) {
 			setScore(score + 1);
 		}
     else {
-      setScore(score - 1);
+      setScore(score);
     }     
 	};
 
@@ -151,6 +152,10 @@ export const FingeringPractice = () => {
     return combination;
   };
 
+  const handleTimerData = (data) => {
+    setTimerRunning(data);
+  }
+
   useEffect(() => {
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     setDisplayCard(currentCard.current);
@@ -163,7 +168,7 @@ export const FingeringPractice = () => {
           <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
         <div className="column">
-          {gameStarted ? <CountdownTimer initialTime={60} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
+          {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
           <h4>Score = {score}</h4>
         </div>
       </div>
