@@ -11,13 +11,13 @@ export const FingeringPractice = () => {
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
-    if (event.key == ' ') {
+    if (event.key == 'x') {
       handleButtonClickOn("buttonT");
-    } else if (event.key == 'b') {
+    } else if (event.key == 'd') {
       handleButtonClickOn("button1");
-    } else if (event.key == 'h') {
+    } else if (event.key == 'e') {
       handleButtonClickOn("button2");
-    } else if (event.key == 'y') {
+    } else if (event.key == '3') {
       handleButtonClickOn("button3");
     } else if (event.key == 'o') {
       handleButtonClickOn("buttonO");
@@ -27,13 +27,13 @@ export const FingeringPractice = () => {
   }, []);
 
   const handleKeyUp = useCallback((event) => {
-    if (event.key == ' ') {
+    if (event.key == 'x') {
       handleButtonClickOff("buttonT");
-    } else if (event.key == 'b') {
+    } else if (event.key == 'd') {
       handleButtonClickOff("button1");
-    } else if (event.key == 'h') {
+    } else if (event.key == 'e') {
       handleButtonClickOff("button2");
-    } else if (event.key == 'y') {
+    } else if (event.key == '3') {
       handleButtonClickOff("button3");
     } else if (event.key == 'o') {
       handleButtonClickOff("buttonO");
@@ -148,6 +148,8 @@ export const FingeringPractice = () => {
     } else {
       combination = "nothing selected";
     }
+    
+    console.log(combination + ', ' + fingerings[currentCard.current].defaultFingering);
     if (combination == fingerings[currentCard.current].defaultFingering) answerClick(true);
     return combination;
   };
@@ -179,7 +181,7 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn("button3")}
                   onMouseUp={() => handleButtonClickOff("button3")}
                   onTouchEnd={() => handleButtonClickOff("button3")}>
-            3 (y)
+            3 (3)
             {/* {buttonStates.button3 ? "ON" : "OFF"} */}
           </button>
         </div>
@@ -189,7 +191,7 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn("button2")}
                   onMouseUp={() => handleButtonClickOff("button2")}
                   onTouchEnd={() => handleButtonClickOff("button2")}>
-            2 (h)
+            2 (e)
           </button>
         </div>
         <div>
@@ -198,7 +200,7 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn("button1")}
                   onMouseUp={() => handleButtonClickOff("button1")}
                   onTouchEnd={() => handleButtonClickOff("button1")}>
-            1 (b)
+            1 (d)
           </button>
         </div>
         <div>
@@ -207,7 +209,7 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn("buttonT")}
                   onMouseUp={() => handleButtonClickOff("buttonT")}
                   onTouchEnd={() => handleButtonClickOff("buttonT")}>
-            T (space)
+            T (x)
           </button>
           <button className="key"
                   onMouseDown={() => handleButtonClickOn("buttonO")}
