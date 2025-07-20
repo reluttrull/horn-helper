@@ -42,11 +42,12 @@
 }
 
 .flashcard {
-  max-height: 100px;
+  max-height: 1in;
 }
 
 .key {
-  padding: 2em 1.6em;
+  height: 0.8in;
+  width: 1.45in;
 }
 
 .row {
@@ -55,4 +56,8 @@
 
 .column {
   flex: 50%;
+}
+
+.button-block {
+  width: 3in;
 }

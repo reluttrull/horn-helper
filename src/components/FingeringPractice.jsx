@@ -158,62 +158,65 @@ export const FingeringPractice = () => {
 
   return (
     <div>
-      <div class="row">
-        <div class="column">  
+      <div className="row">
+        <div className="column">  
           <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
-        <div class="column">
+        <div className="column">
           {gameStarted ? <CountdownTimer initialTime={60} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
-          <h4>Current score = {score}</h4>
+          <h4>Score = {score}</h4>
         </div>
       </div>
-      <div>
-        <button className="key"
-                onMouseDown={() => handleButtonClickOn("button3")}
-                onTouchStart={() => handleButtonClickOn("button3")}
-                onMouseUp={() => handleButtonClickOff("button3")}
-                onTouchEnd={() => handleButtonClickOff("button3")}>
-          3rd valve (y) {buttonStates.button3 ? "ON" : "OFF"}
-        </button>
-      </div>
-      <div>
-        <button className="key"
-                onMouseDown={() => handleButtonClickOn("button2")}
-                onTouchStart={() => handleButtonClickOn("button2")}
-                onMouseUp={() => handleButtonClickOff("button2")}
-                onTouchEnd={() => handleButtonClickOff("button2")}>
-          2nd valve (h) {buttonStates.button2 ? "ON" : "OFF"}
-        </button>
-      </div>
-      <div>
-        <button className="key"
-                onMouseDown={() => handleButtonClickOn("button1")}
-                onTouchStart={() => handleButtonClickOn("button1")}
-                onMouseUp={() => handleButtonClickOff("button1")}
-                onTouchEnd={() => handleButtonClickOff("button1")}>
-          1st valve (b) {buttonStates.button1 ? "ON" : "OFF"}
-        </button>
-      </div>
-      <div>
-        <button className="key"
-                onMouseDown={() => handleButtonClickOn("buttonT")}
-                onTouchStart={() => handleButtonClickOn("buttonT")}
-                onMouseUp={() => handleButtonClickOff("buttonT")}
-                onTouchEnd={() => handleButtonClickOff("buttonT")}>
-          trigger (spacebar) {buttonStates.buttonT ? "ON" : "OFF"}
-        </button>
-        <button className="key"
-                onMouseDown={() => handleButtonClickOn("buttonO")}
-                onTouchStart={() => handleButtonClickOn("buttonO")}
-                onMouseUp={() => handleButtonClickOff("buttonO")}
-                onTouchEnd={() => handleButtonClickOff("buttonO")}>
-          open (o) {buttonStates.buttonO ? "ON" : "OFF"}
-        </button>
-        <button className="key"
-                onMouseDown={() => handleClear()}
-                onTouchStart={() => handleClear()}>
-          clear (c)
-        </button>
+      <div className="button-block">
+        <div>
+          <button className="key"
+                  onMouseDown={() => handleButtonClickOn("button3")}
+                  onTouchStart={() => handleButtonClickOn("button3")}
+                  onMouseUp={() => handleButtonClickOff("button3")}
+                  onTouchEnd={() => handleButtonClickOff("button3")}>
+            3 (y)
+            {/* {buttonStates.button3 ? "ON" : "OFF"} */}
+          </button>
+        </div>
+        <div>
+          <button className="key"
+                  onMouseDown={() => handleButtonClickOn("button2")}
+                  onTouchStart={() => handleButtonClickOn("button2")}
+                  onMouseUp={() => handleButtonClickOff("button2")}
+                  onTouchEnd={() => handleButtonClickOff("button2")}>
+            2 (h)
+          </button>
+        </div>
+        <div>
+          <button className="key"
+                  onMouseDown={() => handleButtonClickOn("button1")}
+                  onTouchStart={() => handleButtonClickOn("button1")}
+                  onMouseUp={() => handleButtonClickOff("button1")}
+                  onTouchEnd={() => handleButtonClickOff("button1")}>
+            1 (b)
+          </button>
+        </div>
+        <div>
+          <button className="key"
+                  onMouseDown={() => handleButtonClickOn("buttonT")}
+                  onTouchStart={() => handleButtonClickOn("buttonT")}
+                  onMouseUp={() => handleButtonClickOff("buttonT")}
+                  onTouchEnd={() => handleButtonClickOff("buttonT")}>
+            T (space)
+          </button>
+          <button className="key"
+                  onMouseDown={() => handleButtonClickOn("buttonO")}
+                  onTouchStart={() => handleButtonClickOn("buttonO")}
+                  onMouseUp={() => handleButtonClickOff("buttonO")}
+                  onTouchEnd={() => handleButtonClickOff("buttonO")}>
+            open (o)
+          </button>
+          <button className="key"
+                  onMouseDown={() => handleClear()}
+                  onTouchStart={() => handleClear()}>
+            clear (c)
+          </button>
+        </div>
       </div>
       <p>{checkCombination()}</p>
     </div>
