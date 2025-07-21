@@ -218,14 +218,9 @@ export const FingeringPractice = () => {
                   onTouchEnd={() => handleButtonClickOff("buttonO")}>
             open (o)
           </button>
-          <button className="key"
-                  onMouseDown={() => handleClear()}
-                  onTouchStart={() => handleClear()}>
-            clear (c)
-          </button>
         </div>
       </div>
-      <p>{checkCombination()}</p>
+      <p className="combination">{checkCombination()}</p>
     </div>
   );
 };

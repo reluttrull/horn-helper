@@ -47,8 +47,7 @@
 }
 
 .key {
-  min-height:0.95in;
-  max-height:1.2in;
+  height: 1.05in;
   width: 1.45in;
 }
 
@@ -62,4 +61,8 @@
 
 .button-block {
   width: 3in;
+}
+
+.combination {
+  display: none;
 }
