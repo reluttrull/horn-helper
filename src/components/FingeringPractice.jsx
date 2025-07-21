@@ -174,7 +174,7 @@ export const FingeringPractice = () => {
           <h4>Score = {score}</h4>
         </div>
       </div>
-      <div className="button-block">
+      <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
         <div>
           <button className="key"
                   onMouseDown={() => handleButtonClickOn("button3")}
@@ -220,7 +220,7 @@ export const FingeringPractice = () => {
           </button>
         </div>
       </div>
-      <p className="combination">{checkCombination()}</p>
+      <p className="invisible">{checkCombination()}</p>
     </div>
   );
 };
