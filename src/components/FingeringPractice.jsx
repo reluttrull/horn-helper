@@ -214,7 +214,7 @@ export const FingeringPractice = () => {
           </button>
         </div>
         <div>
-          <button className="key"
+          <button className={hornType == 'standardDouble' ? "key" : "invisible key"}
                   onMouseDown={() => handleButtonClickOn("buttonT")}
                   onTouchStart={() => handleButtonClickOn("buttonT")}
                   onMouseUp={() => handleButtonClickOff("buttonT")}

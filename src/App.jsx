@@ -24,6 +24,7 @@ function App() {
       localStorage.setItem('hornType', event.target.value);
       if (firstTime) {
         localStorage.setItem('lastLogin', new Date().toDateString());
+        setFirstTime(false);
       }
     }
   }
@@ -47,7 +48,7 @@ function App() {
             <option value="singleBb">Single Bb horn</option>
             <option value="standardDouble">Double horn</option>
           </select>  
-          <button onClick={closeModal}>Close</button>
+          <button className={firstTime ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>
       </div>)}
       <button onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaBookOpen /></button>
