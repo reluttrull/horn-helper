@@ -166,6 +166,9 @@ export const FingeringPractice = () => {
 
   const handleTimerData = (data) => {
     setTimerRunning(data);
+    if (!data) {
+      
+    }
   }
 
   useEffect(() => {
