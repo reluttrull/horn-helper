@@ -3,11 +3,14 @@ import { CountdownTimer } from './CountdownTimer.jsx';
 import fingerings from '../data/fingeringChart.json';
 
 export const FingeringPractice = () => {
+  let today = new Date().toDateString();
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
+  const [initials, setInitials] = useState("");
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
+  const [gameOver, setGameOver] = useState(false);
   const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
   const [range, setRange] = useState(localStorage.getItem('range'));
   let oneOctave = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'];
@@ -178,19 +181,20 @@ export const FingeringPractice = () => {
   const handleTimerData = (data) => {
     setTimerRunning(data);
     if (!data) {
-      
+      setGameOver(true);
     }
   }
 
-  const getMyRange = (range) => {
-    switch (range) {
-      case "1octave": 
-        return Array.from(oneOctave);
-        break;
-      case "2octave":
-        return Array.from(twoOctaves);
-        break;
+  const handleInitialsChange = (e) => {
+    const regex = /^[a-zA-Z]{1,3}$/; // Allow only three alpha characters
+    if (regex.test(e.target.value)) {
+      setInitials(e.target.value);
+      console.log('set to ' + initials);
     }
+  };
+  const handleSaveInitials = () => {
+    console.log('initials saved as ' + initials);
+    localStorage.setItem('score:'+initials+','+today, score);
   }
 
   useEffect(() => {
@@ -207,6 +211,16 @@ export const FingeringPractice = () => {
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
           <h4>Score = {score}</h4>
         </div>
+      </div>
+      <div className={gameOver ? "visible" : "invisible"}>
+        game over 
+        <input
+          type="text"
+          value={initials}
+          onChange={handleInitialsChange}
+          placeholder="Enter up to three initials"
+        />
+        <button onClick={handleSaveInitials}>Save</button>
       </div>
       <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
         <div>
