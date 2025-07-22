@@ -23,7 +23,7 @@ export const CountdownTimer = ({ initialTime, onDataSend }) => {
 
   return (
     <div>
-      <h3>Time Left: {timeLeft}s</h3>
+      <h5>Time Left: {timeLeft}s</h5>
     </div>
   );
 };
