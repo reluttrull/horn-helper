@@ -9,6 +9,9 @@ export const FingeringPractice = () => {
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
   const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
+  const [range, setRange] = useState(localStorage.getItem('range'));
+  let oneOctave = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'];
+  let twoOctaves = ['f3', 'g3', 'a3', 'b3', 'c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5'];
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
@@ -101,6 +104,14 @@ export const FingeringPractice = () => {
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
+    while (!(range == '1octave' ? oneOctave : twoOctaves).includes(fingerings[currentCard.current].noteId)) {  
+      currentCard.current = parseInt(Math.random() * fingerings.length);
+      console.log(fingerings[currentCard.current].noteId);
+    }
+    if ((range == '1octave' ? oneOctave : twoOctaves).includes(fingerings[currentCard.current].noteId)) {
+      console.log(range);
+      console.log('contains ' + fingerings[currentCard.current].noteId);  
+    }
     setDisplayCard(currentCard.current);
     //make changes based on selection
 		if (isCorrect && timerRunning) {
@@ -171,9 +182,19 @@ export const FingeringPractice = () => {
     }
   }
 
+  const getMyRange = (range) => {
+    switch (range) {
+      case "1octave": 
+        return Array.from(oneOctave);
+        break;
+      case "2octave":
+        return Array.from(twoOctaves);
+        break;
+    }
+  }
+
   useEffect(() => {
-		currentCard.current = parseInt(Math.random() * fingerings.length);
-    setDisplayCard(currentCard.current);
+		answerClick(false);
   }, []);
 
   return (

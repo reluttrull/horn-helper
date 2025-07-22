@@ -72,7 +72,7 @@ function App() {
           <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
             <option value="...">...</option>
             <option value="1octave">1 octave (C to C)</option>
-            <option value="2octaves">2 octaves (F to F) [under construction]</option>
+            <option value="2octaves">2 octaves (F to F)</option>
           </select>  
           </div>
           <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>

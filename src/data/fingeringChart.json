@@ -1,5 +1,29 @@
 [
   {
+    "noteId": "f3",
+    "img": "/images/f3.png",
+    "doubleFingering": "T0",
+    "BbFingering": "0"
+  },
+  {
+    "noteId": "g3",
+    "img": "/images/g3.png",
+    "doubleFingering": "o",
+    "BbFingering": "13"
+  },
+  {
+    "noteId": "a3",
+    "img": "/images/a3.png",
+    "doubleFingering": "12",
+    "BbFingering": "12"
+  },
+  {
+    "noteId": "b3",
+    "img": "/images/b3.png",
+    "doubleFingering": "2",
+    "BbFingering": "2"
+  },
+  {
     "noteId": "c4",
     "img": "/images/c4.png",
     "doubleFingering": "0",
@@ -44,6 +68,24 @@
   {
     "noteId": "c5",
     "img": "/images/c5.png",
+    "doubleFingering": "T0",
+    "BbFingering": "0"
+  },
+  {
+    "noteId": "d5",
+    "img": "/images/d5.png",
+    "doubleFingering": "T12",
+    "BbFingering": "12"
+  },
+  {
+    "noteId": "e5",
+    "img": "/images/e5.png",
+    "doubleFingering": "T2",
+    "BbFingering": "2"
+  },
+  {
+    "noteId": "f5",
+    "img": "/images/f5.png",
     "doubleFingering": "T0",
     "BbFingering": "0"
   }
