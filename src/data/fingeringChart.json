@@ -2,41 +2,49 @@
   {
     "noteId": "c4",
     "img": "/images/c4.png",
-    "defaultFingering": "0"
+    "doubleFingering": "0",
+    "BbFingering": "0"
   },
   {
     "noteId": "d4",
     "img": "/images/d4.png",
-    "defaultFingering": "1"
+    "doubleFingering": "1",
+    "BbFingering": "12"
   },
   {
     "noteId": "e4",
     "img": "/images/e4.png",
-    "defaultFingering": "0"
+    "doubleFingering": "0",
+    "BbFingering": "2"
   },
   {
     "noteId": "f4",
     "img": "/images/f4.png",
-    "defaultFingering": "1"
+    "doubleFingering": "1",
+    "BbFingering": "0"
   },
   {
     "noteId": "g4",
     "img": "/images/g4.png",
-    "defaultFingering": "0"
+    "doubleFingering": "0",
+    "BbFingering": "1"
   },
   {
     "noteId": "a4",
     "img": "/images/a4.png",
-    "defaultFingering": "T12"
+    "doubleFingering": "T12",
+    "BbFingering": "12"
   },
   {
     "noteId": "b4",
     "img": "/images/b4.png",
-    "defaultFingering": "T2"
+    "doubleFingering": "T2",
+    "BbFingering": "2"
   },
   {
     "noteId": "c5",
     "img": "/images/c5.png",
-    "defaultFingering": "T0"
+    "doubleFingering": "T0",
+    "BbFingering": "0"
   }
 ]

@@ -8,6 +8,7 @@ export const FingeringPractice = () => {
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
+  const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
@@ -148,9 +149,18 @@ export const FingeringPractice = () => {
     } else {
       combination = "nothing selected";
     }
-    
-    console.log(combination + ', ' + fingerings[currentCard.current].defaultFingering);
-    if (combination == fingerings[currentCard.current].defaultFingering) answerClick(true);
+    let defaultFingering = "";
+    console.log('horn type is ' + hornType);
+    switch (hornType) {
+      case "singleBb":
+        defaultFingering = fingerings[currentCard.current].BbFingering;
+        break;
+      case "standardDouble":
+        defaultFingering = fingerings[currentCard.current].doubleFingering;
+        break;
+    }
+    console.log(fingerings[currentCard.current]);
+    if (combination == defaultFingering) answerClick(true);
     return combination;
   };
 
