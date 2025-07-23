@@ -6,10 +6,34 @@
     "BbFingering": "0"
   },
   {
+    "noteId": "fs3",
+    "img": "/images/fs3.png",
+    "doubleFingering": "2",
+    "BbFingering": "123"
+  },
+  {
+    "noteId": "gf3",
+    "img": "/images/gf3.png",
+    "doubleFingering": "2",
+    "BbFingering": "123"
+  },
+  {
     "noteId": "g3",
     "img": "/images/g3.png",
     "doubleFingering": "0",
     "BbFingering": "13"
+  },
+  {
+    "noteId": "gs3",
+    "img": "/images/gs3.png",
+    "doubleFingering": "23",
+    "BbFingering": "23"
+  },
+  {
+    "noteId": "af3",
+    "img": "/images/af3.png",
+    "doubleFingering": "23",
+    "BbFingering": "23"
   },
   {
     "noteId": "a3",
@@ -18,10 +42,34 @@
     "BbFingering": "12"
   },
   {
+    "noteId": "as3",
+    "img": "/images/as3.png",
+    "doubleFingering": "1",
+    "BbFingering": "1"
+  },
+  {
+    "noteId": "bb3",
+    "img": "/images/bb3.png",
+    "doubleFingering": "1",
+    "BbFingering": "1"
+  },
+  {
     "noteId": "b3",
     "img": "/images/b3.png",
     "doubleFingering": "2",
     "BbFingering": "2"
+  },
+  {
+    "noteId": "cf4",
+    "img": "/images/cf4.png",
+    "doubleFingering": "2",
+    "BbFingering": "2"
+  },
+  {
+    "noteId": "bs3",
+    "img": "/images/bs3.png",
+    "doubleFingering": "0",
+    "BbFingering": "0"
   },
   {
     "noteId": "c4",
@@ -30,10 +78,34 @@
     "BbFingering": "0"
   },
   {
+    "noteId": "cs4",
+    "img": "/images/cs4.png",
+    "doubleFingering": "12",
+    "BbFingering": "23"
+  },
+  {
+    "noteId": "df4",
+    "img": "/images/df4.png",
+    "doubleFingering": "12",
+    "BbFingering": "23"
+  },
+  {
     "noteId": "d4",
     "img": "/images/d4.png",
     "doubleFingering": "1",
     "BbFingering": "12"
+  },
+  {
+    "noteId": "ds4",
+    "img": "/images/ds4.png",
+    "doubleFingering": "2",
+    "BbFingering": "1"
+  },
+  {
+    "noteId": "ef4",
+    "img": "/images/ef4.png",
+    "doubleFingering": "2",
+    "BbFingering": "1"
   },
   {
     "noteId": "e4",
@@ -42,10 +114,34 @@
     "BbFingering": "2"
   },
   {
+    "noteId": "ff4",
+    "img": "/images/ff4.png",
+    "doubleFingering": "0",
+    "BbFingering": "2"
+  },
+  {
+    "noteId": "es4",
+    "img": "/images/es4.png",
+    "doubleFingering": "1",
+    "BbFingering": "0"
+  },
+  {
     "noteId": "f4",
     "img": "/images/f4.png",
     "doubleFingering": "1",
     "BbFingering": "0"
+  },
+  {
+    "noteId": "fs4",
+    "img": "/images/fs4.png",
+    "doubleFingering": "2",
+    "BbFingering": "12"
+  },
+  {
+    "noteId": "gf4",
+    "img": "/images/gf4.png",
+    "doubleFingering": "2",
+    "BbFingering": "12"
   },
   {
     "noteId": "g4",
@@ -54,10 +150,34 @@
     "BbFingering": "1"
   },
   {
+    "noteId": "gs4",
+    "img": "/images/gs4.png",
+    "doubleFingering": "T23",
+    "BbFingering": "23"
+  },
+  {
+    "noteId": "af4",
+    "img": "/images/af4.png",
+    "doubleFingering": "T23",
+    "BbFingering": "23"
+  },
+  {
     "noteId": "a4",
     "img": "/images/a4.png",
     "doubleFingering": "T12",
     "BbFingering": "12"
+  },
+  {
+    "noteId": "as4",
+    "img": "/images/as4.png",
+    "doubleFingering": "T1",
+    "BbFingering": "1"
+  },
+  {
+    "noteId": "bb4",
+    "img": "/images/bf4.png",
+    "doubleFingering": "T1",
+    "BbFingering": "1"
   },
   {
     "noteId": "b4",
@@ -66,10 +186,34 @@
     "BbFingering": "2"
   },
   {
+    "noteId": "cf5",
+    "img": "/images/cf5.png",
+    "doubleFingering": "T2",
+    "BbFingering": "2"
+  },
+  {
+    "noteId": "bs4",
+    "img": "/images/bs4.png",
+    "doubleFingering": "T0",
+    "BbFingering": "0"
+  },
+  {
     "noteId": "c5",
     "img": "/images/c5.png",
     "doubleFingering": "T0",
     "BbFingering": "0"
+  },
+  {
+    "noteId": "cs5",
+    "img": "/images/cs5.png",
+    "doubleFingering": "T23",
+    "BbFingering": "23"
+  },
+  {
+    "noteId": "df5",
+    "img": "/images/df5.png",
+    "doubleFingering": "T23",
+    "BbFingering": "23"
   },
   {
     "noteId": "d5",
@@ -78,10 +222,34 @@
     "BbFingering": "12"
   },
   {
+    "noteId": "ds5",
+    "img": "/images/ds5.png",
+    "doubleFingering": "T1",
+    "BbFingering": "1"
+  },
+  {
+    "noteId": "ef5",
+    "img": "/images/ef5.png",
+    "doubleFingering": "T1",
+    "BbFingering": "1"
+  },
+  {
     "noteId": "e5",
     "img": "/images/e5.png",
     "doubleFingering": "T2",
     "BbFingering": "2"
+  },
+  {
+    "noteId": "ff5",
+    "img": "/images/ff5.png",
+    "doubleFingering": "T2",
+    "BbFingering": "2"
+  },
+  {
+    "noteId": "es5",
+    "img": "/images/es5.png",
+    "doubleFingering": "T0",
+    "BbFingering": "0"
   },
   {
     "noteId": "f5",
