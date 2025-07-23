@@ -12,8 +12,15 @@ export const FingeringPractice = () => {
   const [gameOver, setGameOver] = useState(false);
   const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
   const [range, setRange] = useState(localStorage.getItem('range'));
+  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem('accidentals'));
   let oneOctave = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'];
   let twoOctaves = ['f3', 'g3', 'a3', 'b3', 'c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5'];
+  let oneOctaveAccidentalsEasy = ['ef4', 'fs4', 'bf4'];
+  let oneOctaveAccidentalsMost = ['cs4', 'df4', 'ds4', 'ef4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4'];
+  let oneOctaveAccidentalsAll = ['cs4', 'df4', 'ds4', 'ef4', 'ff4', 'es4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cf5', 'bs4'];
+  let twoOctavesAccidentalsEasy = ['fs3', 'bf3', 'ef4', 'fs4', 'bf4', 'ef5'];
+  let twoOctavesAccidentalsMost = ['fs3', 'gf3', 'gs3', 'af3', 'as3', 'bf3', 'cs4', 'df4', 'ds4', 'ef4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cs5', 'df5', 'ds5', 'ef5'];
+  let twoOctavesAccidentalsAll = ['fs3', 'gf3', 'gs3', 'af3', 'as3', 'bf3', 'cf4', 'bs3', 'cs4', 'df4', 'ds4', 'ef4', 'ff4', 'es4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cf5', 'bs4', 'cs5', 'df5', 'ds5', 'ef5', 'ff5', 'es5'];
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
@@ -106,11 +113,27 @@ export const FingeringPractice = () => {
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
-    while (!(range == '1octave' ? oneOctave : twoOctaves).includes(fingerings[currentCard.current].noteId)) {  
+    let baseNotes = range == '1octave' ? oneOctave : twoOctaves;
+    let myNotes = [];
+    if (useAccidentals == 'easy') {
+      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsEasy : twoOctavesAccidentalsEasy));
+    } else if (useAccidentals == 'most') {
+      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsMost : twoOctavesAccidentalsMost));
+    } else if (useAccidentals == 'all') {
+      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsAll : twoOctavesAccidentalsAll));
+    } else {
+      myNotes = Array.from(baseNotes);
+    }
+    console.log('my notes:');
+    console.log(myNotes);
+    console.log('json:');
+    console.log(fingerings);
+    
+    while (!myNotes.includes(fingerings[currentCard.current].noteId)) {  
       currentCard.current = parseInt(Math.random() * fingerings.length);
       console.log(fingerings[currentCard.current].noteId);
     }
-    if ((range == '1octave' ? oneOctave : twoOctaves).includes(fingerings[currentCard.current].noteId)) {
+    if (myNotes.includes(fingerings[currentCard.current].noteId)) {
       console.log(range);
       console.log('contains ' + fingerings[currentCard.current].noteId);  
     }

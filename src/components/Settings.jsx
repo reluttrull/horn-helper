@@ -3,6 +3,7 @@ import React, { useState } from "react";
 export const Settings = () => {
   const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
   const [range, setRange] = useState(localStorage.getItem('range'));
+  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem('accidentals'));
 
   const handleHornTypeChange = (event) => {
     if (event.target.value != "...") {
@@ -15,6 +16,13 @@ export const Settings = () => {
     if (event.target.value != "...") {
       setRange(event.target.value);
       localStorage.setItem('range', event.target.value);
+    }
+  }
+
+  const handleAccidentalsChange = (event) => {
+    if (event.target.value != "...") {
+      setUseAccidentals(event.target.value);
+      localStorage.setItem('accidentals', event.target.value);
     }
   }
 
@@ -35,6 +43,16 @@ export const Settings = () => {
           <option value="...">...</option>
           <option value="1octave">1 octave (C to C)</option>
           <option value="2octaves">2 octaves (F to F)</option>
+        </select>  
+      </div>
+      <div>
+        <label htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
+        <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
+          <option value="...">...</option>
+          <option value="no">none</option>
+          <option value="easy">only the most common few</option>
+          <option value="most">almost all</option>
+          <option value="all">all, including E♯, C♭, etc.</option>
         </select>  
       </div>
     </div>

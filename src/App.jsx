@@ -17,11 +17,12 @@ function App() {
   const [firstTime, setFirstTime] = useState(localStorage.getItem('lastLogin') == null);
   const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
   const [range, setRange] = useState(localStorage.getItem('range'));
+  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem('accidentals'));
 
   const closeModal = () => setFirstTime(false);
 
   const checkFirstTime = () => {
-    if (hornType && range) {
+    if (hornType && range && useAccidentals) {
       let lastLogin = localStorage.getItem('lastLogin');
       if (!lastLogin) {
         localStorage.setItem('lastLogin', new Date().toDateString());
@@ -49,6 +50,14 @@ function App() {
     }
   }
 
+  const handleAccidentalsChange = (event) => {
+    if (event.target.value != "...") {
+      setUseAccidentals(event.target.value);
+      localStorage.setItem('accidentals', event.target.value);
+      checkFirstTime();
+    }
+  }
+
   useEffect (() => {
     checkFirstTime();
   }, []);
@@ -61,20 +70,30 @@ function App() {
           <h2>First time?</h2>
           <p>Choose your settings...</p>
           <div>
-          <label htmlFor="dropdown">What type of horn do you play?</label>
-          <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
-            <option value="...">...</option>
-            <option value="singleBb">Single Bb horn</option>
-            <option value="standardDouble">Double horn</option>
-          </select>  
+            <label htmlFor="dropdown">What type of horn do you play?</label>
+            <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
+              <option value="...">...</option>
+              <option value="singleBb">Single Bb horn</option>
+              <option value="standardDouble">Double horn</option>
+            </select>  
           </div>
           <div>
-          <label htmlFor="dropdown">How wide a range do you want to practice?</label>
-          <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
-            <option value="...">...</option>
-            <option value="1octave">1 octave (C to C)</option>
-            <option value="2octaves">2 octaves (F to F)</option>
-          </select>  
+            <label htmlFor="dropdown">How wide a range do you want to practice?</label>
+            <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
+              <option value="...">...</option>
+              <option value="1octave">1 octave (C to C)</option>
+              <option value="2octaves">2 octaves (F to F)</option>
+            </select>  
+          </div>
+          <div>
+            <label htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
+            <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
+              <option value="...">...</option>
+              <option value="no">none</option>
+              <option value="easy">only the most common few</option>
+              <option value="most">almost all</option>
+              <option value="all">all, including E♯, C♭, etc.</option>
+            </select>  
           </div>
           <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>

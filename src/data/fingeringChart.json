@@ -48,8 +48,8 @@
     "BbFingering": "1"
   },
   {
-    "noteId": "bb3",
-    "img": "/images/bb3.png",
+    "noteId": "bf3",
+    "img": "/images/bf3.png",
     "doubleFingering": "1",
     "BbFingering": "1"
   },
@@ -174,7 +174,7 @@
     "BbFingering": "1"
   },
   {
-    "noteId": "bb4",
+    "noteId": "bf4",
     "img": "/images/bf4.png",
     "doubleFingering": "T1",
     "BbFingering": "1"
