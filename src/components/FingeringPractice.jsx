@@ -3,7 +3,6 @@ import { CountdownTimer } from './CountdownTimer.jsx';
 import fingerings from '../data/fingeringChart.json';
 
 export const FingeringPractice = () => {
-  let today = new Date().toDateString();
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [initials, setInitials] = useState("");
@@ -192,9 +191,13 @@ export const FingeringPractice = () => {
       console.log('set to ' + initials);
     }
   };
+
   const handleSaveInitials = () => {
     console.log('initials saved as ' + initials);
-    localStorage.setItem('score:'+initials+','+today, score);
+    localStorage.setItem('score:'+initials+','+new Date(), score);
+    setScore(0);
+    setGameOver(false);
+    setGameStarted(false);
   }
 
   useEffect(() => {

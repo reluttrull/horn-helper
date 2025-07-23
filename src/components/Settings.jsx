@@ -20,6 +20,7 @@ export const Settings = () => {
 
   return (
     <div>
+      <h3>Settings</h3>
       <div>
         <label htmlFor="dropdown">What type of horn do you play?</label>
         <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>

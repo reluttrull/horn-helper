@@ -90,3 +90,7 @@
   width: 100%;
   text-align: center;
 }
+
+.leaderboard {
+  min-width: 2.5in;
+}

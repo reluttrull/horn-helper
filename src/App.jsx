@@ -3,6 +3,7 @@ import { FaBookOpen, FaChartLine, FaGear } from 'react-icons/fa6';
 import './App.css'
 import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
+import { Leaderboard } from './components/Leaderboard.jsx';
 
 function App() {
   const [count, setCount] = useState(0);
@@ -83,7 +84,7 @@ function App() {
       <button onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
       { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
       { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
-      { tab == Tabs.MYLEADERBOARD ? <h2>My Leaderboard</h2> : <div></div>}
+      { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
     </>
   )
 }
