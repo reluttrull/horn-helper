@@ -167,7 +167,7 @@ export const FingeringPractice = () => {
     } else if (!buttonT && button1 && button2 && button3) {
       combination = "123";
     } else if (buttonT && !button1 && !button2 && !button3) {
-      combination = "T0";
+      combination = "T";
     } else if (buttonT && button1 && !button2 && !button3) {
       combination = "T1";
     } else if (buttonT && !button1 && button2 && !button3) {

@@ -2,7 +2,7 @@
   {
     "noteId": "f3",
     "img": "/images/f3.png",
-    "doubleFingering": "T0",
+    "doubleFingering": "T",
     "BbFingering": "0"
   },
   {
@@ -194,13 +194,13 @@
   {
     "noteId": "bs4",
     "img": "/images/bs4.png",
-    "doubleFingering": "T0",
+    "doubleFingering": "T",
     "BbFingering": "0"
   },
   {
     "noteId": "c5",
     "img": "/images/c5.png",
-    "doubleFingering": "T0",
+    "doubleFingering": "T",
     "BbFingering": "0"
   },
   {
@@ -248,13 +248,13 @@
   {
     "noteId": "es5",
     "img": "/images/es5.png",
-    "doubleFingering": "T0",
+    "doubleFingering": "T",
     "BbFingering": "0"
   },
   {
     "noteId": "f5",
     "img": "/images/f5.png",
-    "doubleFingering": "T0",
+    "doubleFingering": "T",
     "BbFingering": "0"
   }
 ]
