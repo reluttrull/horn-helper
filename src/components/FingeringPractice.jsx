@@ -25,6 +25,10 @@ export const FingeringPractice = () => {
     O: "buttonO"
   }
 
+  const containsAllCharacters = (str1, str2) => {
+    return str2.split('').every(char => str1.includes(char));
+  };
+
   //shortcuts
   const handleKeyPress = useCallback((event) => {
     if (event.key == 'x') {
@@ -127,9 +131,11 @@ export const FingeringPractice = () => {
     } else {
       myNotes = Array.from(baseNotes);
     }
-    // not in my list, or matches previous fingering
+    // not in my list, or this fingering contained in previous fingering
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
-      || (thisCombination && thisCombination.includes(hornType == 'standardDouble' ? fingerings[currentCard.current].doubleFingering : fingerings[currentCard.current].BbFingering))) {  
+      || (thisCombination && containsAllCharacters(thisCombination, (hornType == 'standardDouble' 
+                ? fingerings[currentCard.current].doubleFingering 
+                : fingerings[currentCard.current].BbFingering)))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
     }
     // if (myNotes.includes(fingerings[currentCard.current].noteId)) {
