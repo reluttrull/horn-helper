@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
 import { CountdownTimer } from './CountdownTimer.jsx';
-import { LocalStorageKeys } from "../utils/GlobalKeys.js";
+import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from "../utils/GlobalKeys.js";
 import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMost, 
   oneOctaveAccidentalsAll, twoOctavesAccidentalsEasy, twoOctavesAccidentalsMost, 
   twoOctavesAccidentalsAll } from '../utils/Structures.js';
@@ -120,20 +120,20 @@ export const FingeringPractice = () => {
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
-    let baseNotes = range == '1octave' ? oneOctave : twoOctaves;
+    let baseNotes = range == Ranges.ONEOCTAVE ? oneOctave : twoOctaves;
     let myNotes = [];
-    if (useAccidentals == 'easy') {
-      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsEasy : twoOctavesAccidentalsEasy));
-    } else if (useAccidentals == 'most') {
-      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsMost : twoOctavesAccidentalsMost));
-    } else if (useAccidentals == 'all') {
-      myNotes = baseNotes.concat((range == '1octave' ? oneOctaveAccidentalsAll : twoOctavesAccidentalsAll));
+    if (useAccidentals == AccidentalSettings.EASY) {
+      myNotes = baseNotes.concat((range == Ranges.ONEOCTAVE ? oneOctaveAccidentalsEasy : twoOctavesAccidentalsEasy));
+    } else if (useAccidentals == AccidentalSettings.MOST) {
+      myNotes = baseNotes.concat((range == Ranges.ONEOCTAVE ? oneOctaveAccidentalsMost : twoOctavesAccidentalsMost));
+    } else if (useAccidentals == AccidentalSettings.ALL) {
+      myNotes = baseNotes.concat((range == Ranges.ONEOCTAVE ? oneOctaveAccidentalsAll : twoOctavesAccidentalsAll));
     } else {
       myNotes = Array.from(baseNotes);
     }
     // not in my list, or this fingering contained in previous fingering
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
-      || (thisCombination && containsAllCharacters(thisCombination, (hornType == 'standardDouble' 
+      || (thisCombination && containsAllCharacters(thisCombination, (hornType == HornTypes.DOUBLEHORN 
                 ? fingerings[currentCard.current].doubleFingering 
                 : fingerings[currentCard.current].BbFingering)))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
@@ -192,10 +192,10 @@ export const FingeringPractice = () => {
     let defaultFingering = "";
     //console.log('horn type is ' + hornType);
     switch (hornType) {
-      case "singleBb":
+      case HornTypes.SINGLEBB:
         defaultFingering = fingerings[currentCard.current].BbFingering;
         break;
-      case "standardDouble":
+      case HornTypes.DOUBLEHORN:
         defaultFingering = fingerings[currentCard.current].doubleFingering;
         break;
     }
@@ -281,7 +281,7 @@ export const FingeringPractice = () => {
           </button>
         </div>
         <div>
-          <button className={hornType == 'standardDouble' ? "key" : "invisible key"}
+          <button className={hornType == HornTypes.DOUBLEHORN ? "key" : "invisible key"}
                   onMouseDown={() => handleButtonClickOn(ButtonNames.T)}
                   onTouchStart={() => handleButtonClickOn(ButtonNames.T)}
                   onMouseUp={() => handleButtonClickOff(ButtonNames.T)}
