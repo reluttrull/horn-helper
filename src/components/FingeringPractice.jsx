@@ -1,5 +1,9 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
 import { CountdownTimer } from './CountdownTimer.jsx';
+import { LocalStorageKeys } from "../utils/GlobalKeys.js";
+import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMost, 
+  oneOctaveAccidentalsAll, twoOctavesAccidentalsEasy, twoOctavesAccidentalsMost, 
+  twoOctavesAccidentalsAll } from '../utils/Structures.js';
 import fingerings from '../data/fingeringChart.json';
 
 export const FingeringPractice = () => {
@@ -10,30 +14,29 @@ export const FingeringPractice = () => {
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
   const [gameOver, setGameOver] = useState(false);
-  const [hornType, setHornType] = useState(localStorage.getItem('hornType'));
-  const [range, setRange] = useState(localStorage.getItem('range'));
-  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem('accidentals'));
-  let oneOctave = ['c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5'];
-  let twoOctaves = ['f3', 'g3', 'a3', 'b3', 'c4', 'd4', 'e4', 'f4', 'g4', 'a4', 'b4', 'c5', 'd5', 'e5', 'f5'];
-  let oneOctaveAccidentalsEasy = ['ef4', 'fs4', 'bf4'];
-  let oneOctaveAccidentalsMost = ['cs4', 'df4', 'ds4', 'ef4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4'];
-  let oneOctaveAccidentalsAll = ['cs4', 'df4', 'ds4', 'ef4', 'ff4', 'es4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cf5', 'bs4'];
-  let twoOctavesAccidentalsEasy = ['fs3', 'bf3', 'ef4', 'fs4', 'bf4', 'ef5'];
-  let twoOctavesAccidentalsMost = ['fs3', 'gf3', 'gs3', 'af3', 'as3', 'bf3', 'cs4', 'df4', 'ds4', 'ef4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cs5', 'df5', 'ds5', 'ef5'];
-  let twoOctavesAccidentalsAll = ['fs3', 'gf3', 'gs3', 'af3', 'as3', 'bf3', 'cf4', 'bs3', 'cs4', 'df4', 'ds4', 'ef4', 'ff4', 'es4', 'fs4', 'gf4', 'gs4', 'af4', 'as4', 'bf4', 'cf5', 'bs4', 'cs5', 'df5', 'ds5', 'ef5', 'ff5', 'es5'];
+  const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
+  const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
+  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+  const ButtonNames = {
+    T: "buttonT",
+    ONE: "button1",
+    TWO: "button2", 
+    THREE: "button3",
+    O: "buttonO"
+  }
 
   //shortcuts
   const handleKeyPress = useCallback((event) => {
     if (event.key == 'x') {
-      handleButtonClickOn("buttonT");
+      handleButtonClickOn(ButtonNames.T);
     } else if (event.key == 'd') {
-      handleButtonClickOn("button1");
+      handleButtonClickOn(ButtonNames.ONE);
     } else if (event.key == 'e') {
-      handleButtonClickOn("button2");
+      handleButtonClickOn(ButtonNames.TWO);
     } else if (event.key == '3') {
-      handleButtonClickOn("button3");
+      handleButtonClickOn(ButtonNames.THREE);
     } else if (event.key == 'o') {
-      handleButtonClickOn("buttonO");
+      handleButtonClickOn(ButtonNames.O);
     } else if (event.key == 'c') {
       handleClear();
     }
@@ -41,15 +44,15 @@ export const FingeringPractice = () => {
 
   const handleKeyUp = useCallback((event) => {
     if (event.key == 'x') {
-      handleButtonClickOff("buttonT");
+      handleButtonClickOff(ButtonNames.T);
     } else if (event.key == 'd') {
-      handleButtonClickOff("button1");
+      handleButtonClickOff(ButtonNames.ONE);
     } else if (event.key == 'e') {
-      handleButtonClickOff("button2");
+      handleButtonClickOff(ButtonNames.TWO);
     } else if (event.key == '3') {
-      handleButtonClickOff("button3");
+      handleButtonClickOff(ButtonNames.THREE);
     } else if (event.key == 'o') {
-      handleButtonClickOff("buttonO");
+      handleButtonClickOff(ButtonNames.O);
     } else if (event.key == 'c') {
       setButtonStates({
         buttonT: false,
@@ -124,21 +127,14 @@ export const FingeringPractice = () => {
     } else {
       myNotes = Array.from(baseNotes);
     }
-    //console.log('my notes:');
-    //console.log(myNotes);
-    //console.log('json:');
-    //console.log(fingerings);
     // not in my list, or matches previous fingering
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
       || (thisCombination && thisCombination.includes(hornType == 'standardDouble' ? fingerings[currentCard.current].doubleFingering : fingerings[currentCard.current].BbFingering))) {  
       currentCard.current = parseInt(Math.random() * fingerings.length);
-      //console.log(fingerings[currentCard.current].noteId);
     }
-    if (myNotes.includes(fingerings[currentCard.current].noteId)) {
-      //console.log(range);
-      console.log('contains ' + fingerings[currentCard.current].noteId);  
-      console.log(new Date().toTimeString());
-    }
+    // if (myNotes.includes(fingerings[currentCard.current].noteId)) {
+    //   console.log('contains ' + fingerings[currentCard.current].noteId);
+    // }
     setDisplayCard(currentCard.current);
     //make changes based on selection
 		if (isCorrect && timerRunning) {
@@ -253,45 +249,44 @@ export const FingeringPractice = () => {
       <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn("button3")}
-                  onTouchStart={() => handleButtonClickOn("button3")}
-                  onMouseUp={() => handleButtonClickOff("button3")}
-                  onTouchEnd={() => handleButtonClickOff("button3")}>
+                  onMouseDown={() => handleButtonClickOn(ButtonNames.THREE)}
+                  onTouchStart={() => handleButtonClickOn(ButtonNames.THREE)}
+                  onMouseUp={() => handleButtonClickOff(ButtonNames.THREE)}
+                  onTouchEnd={() => handleButtonClickOff(ButtonNames.THREE)}>
             3 (3)
-            {/* {buttonStates.button3 ? "ON" : "OFF"} */}
           </button>
         </div>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn("button2")}
-                  onTouchStart={() => handleButtonClickOn("button2")}
-                  onMouseUp={() => handleButtonClickOff("button2")}
-                  onTouchEnd={() => handleButtonClickOff("button2")}>
+                  onMouseDown={() => handleButtonClickOn(ButtonNames.TWO)}
+                  onTouchStart={() => handleButtonClickOn(ButtonNames.TWO)}
+                  onMouseUp={() => handleButtonClickOff(ButtonNames.TWO)}
+                  onTouchEnd={() => handleButtonClickOff(ButtonNames.TWO)}>
             2 (e)
           </button>
         </div>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn("button1")}
-                  onTouchStart={() => handleButtonClickOn("button1")}
-                  onMouseUp={() => handleButtonClickOff("button1")}
-                  onTouchEnd={() => handleButtonClickOff("button1")}>
+                  onMouseDown={() => handleButtonClickOn(ButtonNames.ONE)}
+                  onTouchStart={() => handleButtonClickOn(ButtonNames.ONE)}
+                  onMouseUp={() => handleButtonClickOff(ButtonNames.ONE)}
+                  onTouchEnd={() => handleButtonClickOff(ButtonNames.ONE)}>
             1 (d)
           </button>
         </div>
         <div>
           <button className={hornType == 'standardDouble' ? "key" : "invisible key"}
-                  onMouseDown={() => handleButtonClickOn("buttonT")}
-                  onTouchStart={() => handleButtonClickOn("buttonT")}
-                  onMouseUp={() => handleButtonClickOff("buttonT")}
-                  onTouchEnd={() => handleButtonClickOff("buttonT")}>
+                  onMouseDown={() => handleButtonClickOn(ButtonNames.T)}
+                  onTouchStart={() => handleButtonClickOn(ButtonNames.T)}
+                  onMouseUp={() => handleButtonClickOff(ButtonNames.T)}
+                  onTouchEnd={() => handleButtonClickOff(ButtonNames.T)}>
             T (x)
           </button>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn("buttonO")}
-                  onTouchStart={() => handleButtonClickOn("buttonO")}
-                  onMouseUp={() => handleButtonClickOff("buttonO")}
-                  onTouchEnd={() => handleButtonClickOff("buttonO")}>
+                  onMouseDown={() => handleButtonClickOn(ButtonNames.O)}
+                  onTouchStart={() => handleButtonClickOn(ButtonNames.O)}
+                  onMouseUp={() => handleButtonClickOff(ButtonNames.O)}
+                  onTouchEnd={() => handleButtonClickOff(ButtonNames.O)}>
             open (o)
           </button>
         </div>
