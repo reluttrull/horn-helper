@@ -30,7 +30,7 @@ export const Settings = () => {
     <div>
       <h3>Settings</h3>
       <div>
-        <label htmlFor="dropdown">What type of horn do you play?</label>
+        <label className="question" htmlFor="dropdown">What type of horn do you play?</label>
         <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
           <option value="...">...</option>
           <option value="singleBb">Single Bb horn</option>
@@ -38,7 +38,7 @@ export const Settings = () => {
         </select>  
       </div>
       <div>
-        <label htmlFor="dropdown">How wide a range do you want to practice?</label>
+        <label className="question" htmlFor="dropdown">How wide a range do you want to practice?</label>
         <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
           <option value="...">...</option>
           <option value="1octave">1 octave (C to C)</option>
@@ -46,7 +46,7 @@ export const Settings = () => {
         </select>  
       </div>
       <div>
-        <label htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
+        <label className="question" htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
         <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
           <option value="...">...</option>
           <option value="no">none</option>

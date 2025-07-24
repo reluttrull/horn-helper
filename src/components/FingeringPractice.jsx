@@ -235,7 +235,7 @@ export const FingeringPractice = () => {
         </div>
         <div className="column">
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
-          <h4>Score = {score}</h4>
+          <h4 className="console-style">Score = {score}</h4>
         </div>
       </div>
       <div className={gameOver ? "visible" : "invisible"}>

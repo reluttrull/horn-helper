@@ -4,10 +4,11 @@ export const Leaderboard = () => {
   const [myScores, setMyScores] = useState([]);
 
   const scoresTable = myScores.map(score =>
-    <li className="row" key={myScores.indexOf(score)}>
-      <div className="column">{score.date}</div>
-      <div className="column">{score.score}</div>
-    </li>
+    <div className="row" key={myScores.indexOf(score)}>
+      <span className="column">{score.initials}</span>
+      <span className="column leaderboard-cell">{score.date}</span>
+      <span className="column">{score.score}</span>
+    </div>
   );
 
   useEffect(() => {
@@ -20,6 +21,8 @@ export const Leaderboard = () => {
         scoreArray.push(thisScore);
       }
     }
+    scoreArray.sort((a,b) => b.score - a.score);
+    console.log(scoreArray);
     setMyScores(Array.from(scoreArray));
   }, []);
   
@@ -27,7 +30,7 @@ export const Leaderboard = () => {
   return (
     <div>
       <h3>Local leaderboard</h3>
-      <ul className="leaderboard">{scoresTable}</ul>
+      <div className="leaderboard console-style">{scoresTable}</div>
     </div>
   );
 };

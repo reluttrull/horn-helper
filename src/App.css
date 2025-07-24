@@ -56,6 +56,11 @@
 
 .column {
   flex: 50%;
+  padding-right:5px;
+}
+
+.question {
+  padding-right:5px;
 }
 
 .button-block {
@@ -93,4 +98,13 @@
 
 .leaderboard {
   min-width: 2.5in;
+}
+
+.console-style {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color:#00FF00;
+}
+
+.leaderboard-cell {
+  white-space: nowrap;
 }
