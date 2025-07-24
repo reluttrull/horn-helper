@@ -109,7 +109,7 @@ export const FingeringPractice = () => {
   };
 
 
-	const answerClick = (isCorrect) => {
+	const answerClick = (isCorrect, thisCombination) => {
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
@@ -124,18 +124,20 @@ export const FingeringPractice = () => {
     } else {
       myNotes = Array.from(baseNotes);
     }
-    console.log('my notes:');
-    console.log(myNotes);
-    console.log('json:');
-    console.log(fingerings);
-    
-    while (!myNotes.includes(fingerings[currentCard.current].noteId)) {  
+    //console.log('my notes:');
+    //console.log(myNotes);
+    //console.log('json:');
+    //console.log(fingerings);
+    // not in my list, or matches previous fingering
+    while (!myNotes.includes(fingerings[currentCard.current].noteId) 
+      || (thisCombination && thisCombination.includes(hornType == 'standardDouble' ? fingerings[currentCard.current].doubleFingering : fingerings[currentCard.current].BbFingering))) {  
       currentCard.current = parseInt(Math.random() * fingerings.length);
-      console.log(fingerings[currentCard.current].noteId);
+      //console.log(fingerings[currentCard.current].noteId);
     }
     if (myNotes.includes(fingerings[currentCard.current].noteId)) {
-      console.log(range);
+      //console.log(range);
       console.log('contains ' + fingerings[currentCard.current].noteId);  
+      console.log(new Date().toTimeString());
     }
     setDisplayCard(currentCard.current);
     //make changes based on selection
@@ -186,7 +188,7 @@ export const FingeringPractice = () => {
       combination = "nothing selected";
     }
     let defaultFingering = "";
-    console.log('horn type is ' + hornType);
+    //console.log('horn type is ' + hornType);
     switch (hornType) {
       case "singleBb":
         defaultFingering = fingerings[currentCard.current].BbFingering;
@@ -195,8 +197,8 @@ export const FingeringPractice = () => {
         defaultFingering = fingerings[currentCard.current].doubleFingering;
         break;
     }
-    console.log(fingerings[currentCard.current]);
-    if (combination == defaultFingering) answerClick(true);
+    //console.log(fingerings[currentCard.current]);
+    if (combination == defaultFingering) answerClick(true, combination);
     return combination;
   };
 
