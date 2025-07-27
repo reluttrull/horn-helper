@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react'
-import { FaBookOpen, FaChartLine, FaGear } from 'react-icons/fa6';
+import { FaBookOpen, FaChartLine, FaClipboard, FaGear } from 'react-icons/fa6';
 import './App.css'
 import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
 import { Leaderboard } from './components/Leaderboard.jsx';
+import { Study } from './components/Study.jsx';
 import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from './utils/GlobalKeys.js';
 
 function App() {
@@ -12,7 +13,8 @@ function App() {
     FINGERINGPRACTICE: 'fingeringPractice',
     SETTINGS: 'settings',
     MYLEADERBOARD: 'myLeaderboard',
-    GLOBALLEADERBOARD: 'globalLeaderboard'
+    GLOBALLEADERBOARD: 'globalLeaderboard',
+    STUDY: 'study'
   };
   const [tab, setTab] = useState(Tabs.FINGERINGPRACTICE);
   const [firstTime, setFirstTime] = useState(localStorage.getItem('lastLogin') == null);
@@ -99,10 +101,12 @@ function App() {
           <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>
       </div>)}
-      <button onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaBookOpen /></button>
+      <button onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaClipboard /></button>
+      <button onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
       <button onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
       <button onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
       { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
+      { tab == Tabs.STUDY ? <Study /> : <div></div>}
       { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
       { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
     </>

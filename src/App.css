@@ -45,6 +45,19 @@
   height: 1in;
 }
 
+.study-flashcard {
+  width: 1.6in;
+}
+
+.study-fingerings {
+    position: relative;
+    padding-top: 10%;
+}
+
+.study-row {
+  padding-bottom: 10px;
+}
+
 .key {
   height: 1.14in;
   width: 1.45in;
