@@ -25,8 +25,15 @@ export const FingeringPractice = () => {
     O: "buttonO"
   }
 
-  const containsAllCharacters = (str1, str2) => {
-    return str2.split('').every(char => str1.includes(char));
+  const alreadyHaveKeysDown = (keysDown, possibleNextFingerings) => {
+    let i = 0;
+    while (i < possibleNextFingerings.length) {
+      if (possibleNextFingerings[i].split('').every(char => keysDown.includes(char))) {
+        return true
+      }
+      i++;
+    }
+    return false;
   };
 
   //shortcuts
@@ -133,9 +140,9 @@ export const FingeringPractice = () => {
     }
     // not in my list, or this fingering contained in previous fingering
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
-      || (thisCombination && containsAllCharacters(thisCombination, (hornType == HornTypes.DOUBLEHORN 
-                ? fingerings[currentCard.current].doubleFingering 
-                : fingerings[currentCard.current].BbFingering)))) {
+      || (thisCombination && alreadyHaveKeysDown(thisCombination, (hornType == HornTypes.DOUBLEHORN 
+                ? fingerings[currentCard.current].doubleFingerings[0] 
+                : fingerings[currentCard.current].BbFingerings[0])))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
     }
     // if (myNotes.includes(fingerings[currentCard.current].noteId)) {
@@ -189,18 +196,18 @@ export const FingeringPractice = () => {
     } else {
       combination = "nothing selected";
     }
-    let defaultFingering = "";
+    let noteFingerings = [];
     //console.log('horn type is ' + hornType);
     switch (hornType) {
       case HornTypes.SINGLEBB:
-        defaultFingering = fingerings[currentCard.current].BbFingering;
+        noteFingerings = fingerings[currentCard.current].BbFingerings;
         break;
       case HornTypes.DOUBLEHORN:
-        defaultFingering = fingerings[currentCard.current].doubleFingering;
+        noteFingerings = fingerings[currentCard.current].doubleFingerings;
         break;
     }
     //console.log(fingerings[currentCard.current]);
-    if (combination == defaultFingering) answerClick(true, combination);
+    if (noteFingerings.includes(combination)) answerClick(true, combination);
     return combination;
   };
 
