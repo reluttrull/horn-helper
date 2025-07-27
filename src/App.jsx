@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { FaBookOpen, FaChartLine, FaClipboard, FaGear } from 'react-icons/fa6';
 import './App.css'
+import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
 import { Leaderboard } from './components/Leaderboard.jsx';
@@ -105,10 +106,12 @@ function App() {
       <button onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
       <button onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
       <button onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
-      { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
-      { tab == Tabs.STUDY ? <Study /> : <div></div>}
-      { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
-      { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
+      <ErrorBoundary>
+        { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
+        { tab == Tabs.STUDY ? <Study /> : <div></div>}
+        { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
+        { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
+      </ErrorBoundary>
     </>
   )
 }

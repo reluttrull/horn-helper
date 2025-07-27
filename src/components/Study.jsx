@@ -19,7 +19,7 @@ export const Study = () => {
     </div>
   );
 
-  
+  // throw new Error("my error info")
 
   return (
     <>
