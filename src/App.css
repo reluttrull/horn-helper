@@ -58,6 +58,12 @@
   padding-bottom: 10px;
 }
 
+.error-text {
+  width:100%;
+  height:auto;
+  min-height:100px;
+}
+
 .key {
   height: 1.14in;
   width: 1.45in;

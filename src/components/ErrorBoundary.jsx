@@ -4,6 +4,12 @@ class ErrorBoundary extends React.Component {
   constructor(props) {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
+    
+    this.state.copyText = () => {
+      const textBox = document.getElementById("errorText");
+      navigator.clipboard.writeText(textBox.value);
+      alert("Error info copied!  Please paste the copied text in an email and send to hornhelperapp@gmail.com");
+    };
   }
 
   static getDerivedStateFromError(error) {
@@ -26,6 +32,8 @@ class ErrorBoundary extends React.Component {
           {/* <a href={"mailto:hornhelperapp@gmail.com?subject=Error%Reported&body="
             +this.state.error+this.state.errorInfo?.componentStack}>reporting the error.</a> */}
         </p>
+        <textarea id="errorText" className="error-text" value={this.state.error + this.state.errorInfo?.componentStack} />
+        <button onClick={() => this.state.copyText()}>Copy error info to send report</button>
       </div>;
     }
     return this.props.children;
