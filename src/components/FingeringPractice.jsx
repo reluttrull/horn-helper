@@ -244,6 +244,12 @@ export const FingeringPractice = () => {
     setGameOver(false);
     setGameStarted(false);
   }
+  const handleGameStart = () => {
+    setHornType(localStorage.getItem(LocalStorageKeys.HORNTYPE));
+    setRange(localStorage.getItem(LocalStorageKeys.RANGE));
+    setUseAccidentals(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+    setGameStarted(true);
+  }
 
   useEffect(() => {
 		answerClick(false);
@@ -257,7 +263,7 @@ export const FingeringPractice = () => {
         </div>
         <div className="column">
           <button onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeOff />}</button>
-          {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
+          {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
           <h4 className="console-style">Score = {score}</h4>
         </div>
       </div>
