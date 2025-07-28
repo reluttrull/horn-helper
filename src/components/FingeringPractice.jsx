@@ -4,6 +4,7 @@ import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from "../util
 import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMost, 
   oneOctaveAccidentalsAll, twoOctavesAccidentalsEasy, twoOctavesAccidentalsMost, 
   twoOctavesAccidentalsAll } from '../utils/Structures.js';
+import { getScores } from "../utils/DataAccess.js";
 import fingerings from '../data/fingeringChart.json';
 import * as Tone from 'tone';
 import { FaVolumeOff, FaVolumeHigh } from 'react-icons/fa6';
@@ -12,7 +13,7 @@ export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
-  const [initials, setInitials] = useState("");
+  const [initials, setInitials] = useState((getScores()[0] ? getScores()[0].initials : ""));
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
@@ -229,7 +230,7 @@ export const FingeringPractice = () => {
   }
 
   const handleInitialsChange = (e) => {
-    const regex = /^[a-zA-Z]{1,3}$/; // Allow only three alpha characters
+    const regex = /^[a-zA-Z]{0,3}$/; // Allow only three alpha characters
     if (regex.test(e.target.value)) {
       setInitials(e.target.value);
       console.log('set to ' + initials);
