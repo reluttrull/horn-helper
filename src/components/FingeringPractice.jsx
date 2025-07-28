@@ -5,8 +5,11 @@ import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMo
   oneOctaveAccidentalsAll, twoOctavesAccidentalsEasy, twoOctavesAccidentalsMost, 
   twoOctavesAccidentalsAll } from '../utils/Structures.js';
 import fingerings from '../data/fingeringChart.json';
+import * as Tone from 'tone';
+import { FaVolumeOff, FaVolumeHigh } from 'react-icons/fa6';
 
 export const FingeringPractice = () => {
+  const [soundOn, setSoundOn] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
   const [initials, setInitials] = useState("");
@@ -29,7 +32,7 @@ export const FingeringPractice = () => {
     let i = 0;
     while (i < possibleNextFingerings.length) {
       if (possibleNextFingerings[i].split('').every(char => keysDown.includes(char))) {
-        return true
+        return true;
       }
       i++;
     }
@@ -124,6 +127,13 @@ export const FingeringPractice = () => {
 
 
 	const answerClick = (isCorrect, thisCombination) => {
+    if (isCorrect && soundOn && fingerings[currentCard.current]) {
+      //create a synth and connect it to the main output (your speakers)
+      const synth = new Tone.Synth().toDestination();
+      //play a middle 'C' for the duration of an 8th note
+      console.log('sounding pitch is ' + fingerings[currentCard.current].soundingPitch);
+      synth.triggerAttackRelease(fingerings[currentCard.current].soundingPitch, "8n");
+    }
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
@@ -245,6 +255,7 @@ export const FingeringPractice = () => {
           <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
         <div className="column">
+          <button onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeOff />}</button>
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => setGameStarted(true)}>Start</button>}
           <h4 className="console-style">Score = {score}</h4>
         </div>

@@ -62,6 +62,7 @@ export const Study = () => {
       <img className="column study-flashcard" src={note.img} />
       <span className={hornType == HornTypes.DOUBLEHORN ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.doubleFingerings)}</span>
       <span className={hornType == HornTypes.SINGLEBB ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.BbFingerings)}</span>
+      <span className="column study-fingerings">{note.displayName}</span>
     </div>
   );
 
