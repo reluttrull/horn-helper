@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from "../utils/GlobalKeys.js";
 
-export const Settings = () => {
+export const Settings = ({ triggerParent }) => {
   const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
@@ -11,12 +11,18 @@ export const Settings = () => {
       setHornType(event.target.value);
       localStorage.setItem(LocalStorageKeys.HORNTYPE, event.target.value);
     }
+    if (triggerParent) {
+      triggerParent();
+    }
   }
 
   const handleRangeChange = (event) => {
     if (event.target.value != "...") {
       setRange(event.target.value);
       localStorage.setItem(LocalStorageKeys.RANGE, event.target.value);
+    }
+    if (triggerParent) {
+      triggerParent();
     }
   }
 
@@ -25,11 +31,13 @@ export const Settings = () => {
       setUseAccidentals(event.target.value);
       localStorage.setItem(LocalStorageKeys.USEACCIDENTALS, event.target.value);
     }
+    if (triggerParent) {
+      triggerParent();
+    }
   }
 
   return (
     <div>
-      <h3>Settings</h3>
       <div>
         <label className="question" htmlFor="dropdown">What type of horn do you play?</label>
         <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>

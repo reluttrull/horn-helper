@@ -38,29 +38,12 @@ function App() {
     }
   }
 
-  const handleHornTypeChange = (event) => {
-    if (event.target.value != "...") {
-      setHornType(event.target.value);
-      localStorage.setItem(LocalStorageKeys.HORNTYPE, event.target.value);
-      checkFirstTime();
-    }
-  }
-
-  const handleRangeChange = (event) => {
-    if (event.target.value != "...") {
-      setRange(event.target.value);
-      localStorage.setItem(LocalStorageKeys.RANGE, event.target.value);
-      checkFirstTime();
-    }
-  }
-
-  const handleAccidentalsChange = (event) => {
-    if (event.target.value != "...") {
-      setUseAccidentals(event.target.value);
-      localStorage.setItem(LocalStorageKeys.USEACCIDENTALS, event.target.value);
-      checkFirstTime();
-    }
-  }
+  const handleSettingsChange = () => {
+    setHornType(localStorage.getItem(LocalStorageKeys.HORNTYPE));
+    setRange(localStorage.getItem(LocalStorageKeys.RANGE));
+    setUseAccidentals(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+    checkFirstTime();
+  };
 
   useEffect (() => {
     checkFirstTime();
@@ -73,33 +56,7 @@ function App() {
         <div className="modal-content">
           <h2>First time?</h2>
           <p>Choose your settings...</p>
-          <div>
-            <label className="question" htmlFor="dropdown">What type of horn do you play?</label>
-            <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
-              <option value="...">...</option>
-              <option value={HornTypes.SINGLEBB}>Single Bb horn</option>
-              <option value={HornTypes.SINGLEF}>Single F horn</option>
-              <option value={HornTypes.DOUBLEHORN}>Double horn</option>
-            </select>  
-          </div>
-          <div>
-            <label className="question" htmlFor="dropdown">How wide a range do you want to practice?</label>
-            <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
-              <option value="...">...</option>
-              <option value={Ranges.ONEOCTAVE}>1 octave (C to C)</option>
-              <option value={Ranges.TWOOCTAVES}>2 octaves (F to F)</option>
-            </select>  
-          </div>
-          <div>
-            <label className="question" htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
-            <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
-              <option value="...">...</option>
-              <option value={AccidentalSettings.NO}>none</option>
-              <option value={AccidentalSettings.EASY}>only a few of the most common</option>
-              <option value={AccidentalSettings.MOST}>almost all</option>
-              <option value={AccidentalSettings.ALL}>all, including E♯, C♭, etc.</option>
-            </select>  
-          </div>
+          <Settings triggerParent={handleSettingsChange} />
           <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>
       </div>)}
@@ -115,7 +72,7 @@ function App() {
       <ErrorBoundary>
         { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
         { tab == Tabs.STUDY ? <Study /> : <div></div>}
-        { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
+        { tab == Tabs.SETTINGS ? <div><h3>Settings</h3><Settings /></div> : <div></div>}
         { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
       </ErrorBoundary>)}
     </>
