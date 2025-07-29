@@ -1,12 +1,3 @@
-# React + Vite
+# HornHelper
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+HornHelper allows beginning horn players to practice and get feedback on their fingerings, even when they don't have access to their instrument.  Support is available for single Bb, single F, and double horns standing in F.  At this point, students have the option to practice with a range of one (C-C) or two (F-F) octave(s), and with various difficulty levels regarding accidentals.  This allows them to gradually level up their skills on their own.  There is a leaderboard available, where they can compete against their own scores, or against their peers competing on the same device.
