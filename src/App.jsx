@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { FaBookOpen, FaChartLine, FaClipboard, FaGear } from 'react-icons/fa6';
+import { FaBookOpen, FaChartLine, FaGear, FaPenToSquare } from 'react-icons/fa6';
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { FingeringPractice } from './components/FingeringPractice.jsx';
@@ -102,10 +102,14 @@ function App() {
           <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>
       </div>)}
-      <button onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaClipboard /></button>
-      <button onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
-      <button onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
-      <button onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
+      <button alt="play" title="Play" 
+            onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPenToSquare /></button>
+      <button alt="study" title="Study" 
+            onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
+      <button alt="settings" title="Settings" 
+            onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
+      <button alt="leaderboard" title="Leaderboard" 
+            onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
       <ErrorBoundary>
         { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
         { tab == Tabs.STUDY ? <Study /> : <div></div>}
