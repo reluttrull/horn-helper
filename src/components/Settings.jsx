@@ -35,6 +35,7 @@ export const Settings = () => {
         <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
           <option value="...">...</option>
           <option value={HornTypes.SINGLEBB}>Single Bb horn</option>
+          <option value={HornTypes.SINGLEF}>Single F horn</option>
           <option value={HornTypes.DOUBLEHORN}>Double horn</option>
         </select>  
       </div>

@@ -11,6 +11,7 @@ export const Ranges = {
 
 export const HornTypes = {
   SINGLEBB: 'singleBb',
+  SINGLEF: 'singleF',
   DOUBLEHORN: 'standardDouble'
 };
 

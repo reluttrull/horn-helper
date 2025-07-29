@@ -5,7 +5,8 @@
     "soundingPitch": "Bb2",
     "img": "/images/f3.png",
     "doubleFingerings": ["T", "1"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "fs3",
@@ -13,7 +14,8 @@
     "soundingPitch": "B2",
     "img": "/images/fs3.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["123"]
+    "BbFingerings": ["123"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "gf3",
@@ -21,7 +23,8 @@
     "soundingPitch": "Cb3",
     "img": "/images/gf3.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["123"]
+    "BbFingerings": ["123"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "g3",
@@ -29,7 +32,8 @@
     "soundingPitch": "C3",
     "img": "/images/g3.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["13"]
+    "BbFingerings": ["13"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "gs3",
@@ -37,7 +41,8 @@
     "soundingPitch": "C#3",
     "img": "/images/gs3.png",
     "doubleFingerings": ["23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["23"]
   },
   {
     "noteId": "af3",
@@ -45,7 +50,8 @@
     "soundingPitch": "Db3",
     "img": "/images/af3.png",
     "doubleFingerings": ["23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["23"]
   },
   {
     "noteId": "a3",
@@ -53,7 +59,8 @@
     "soundingPitch": "D3",
     "img": "/images/a3.png",
     "doubleFingerings": ["12", "3"],
-    "BbFingerings": ["12", "3"]
+    "BbFingerings": ["12", "3"],
+    "FFingerings": ["12", "3"]
   },
   {
     "noteId": "as3",
@@ -61,7 +68,8 @@
     "soundingPitch": "D#3",
     "img": "/images/as3.png",
     "doubleFingerings": ["1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "bf3",
@@ -69,7 +77,8 @@
     "soundingPitch": "Eb3",
     "img": "/images/bf3.png",
     "doubleFingerings": ["1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "b3",
@@ -77,7 +86,8 @@
     "soundingPitch": "E3",
     "img": "/images/b3.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "cf4",
@@ -85,7 +95,8 @@
     "soundingPitch": "Fb3",
     "img": "/images/cf4.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "bs3",
@@ -93,7 +104,8 @@
     "soundingPitch": "E#3",
     "img": "/images/bs3.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "c4",
@@ -101,7 +113,8 @@
     "soundingPitch": "F3",
     "img": "/images/c4.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "cs4",
@@ -109,7 +122,8 @@
     "soundingPitch": "F#3",
     "img": "/images/cs4.png",
     "doubleFingerings": ["12"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["12"]
   },
   {
     "noteId": "df4",
@@ -117,7 +131,8 @@
     "soundingPitch": "Gb3",
     "img": "/images/df4.png",
     "doubleFingerings": ["12"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["12"]
   },
   {
     "noteId": "d4",
@@ -125,7 +140,8 @@
     "soundingPitch": "G3",
     "img": "/images/d4.png",
     "doubleFingerings": ["1"],
-    "BbFingerings": ["12", "3"]
+    "BbFingerings": ["12", "3"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "ds4",
@@ -133,7 +149,8 @@
     "soundingPitch": "G#3",
     "img": "/images/ds4.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "ef4",
@@ -141,7 +158,8 @@
     "soundingPitch": "Ab3",
     "img": "/images/ef4.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "e4",
@@ -149,7 +167,8 @@
     "soundingPitch": "A3",
     "img": "/images/e4.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "ff4",
@@ -157,7 +176,8 @@
     "soundingPitch": "A3",
     "img": "/images/ff4.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "es4",
@@ -165,7 +185,8 @@
     "soundingPitch": "A#3",
     "img": "/images/es4.png",
     "doubleFingerings": ["1"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "f4",
@@ -173,7 +194,8 @@
     "soundingPitch": "Bb3",
     "img": "/images/f4.png",
     "doubleFingerings": ["1"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "fs4",
@@ -181,7 +203,8 @@
     "soundingPitch": "B3",
     "img": "/images/fs4.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["12"]
+    "BbFingerings": ["12"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "gf4",
@@ -189,7 +212,8 @@
     "soundingPitch": "Cb4",
     "img": "/images/gf4.png",
     "doubleFingerings": ["2"],
-    "BbFingerings": ["12"]
+    "BbFingerings": ["12"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "g4",
@@ -197,7 +221,8 @@
     "soundingPitch": "C4",
     "img": "/images/g4.png",
     "doubleFingerings": ["0"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "gs4",
@@ -205,7 +230,8 @@
     "soundingPitch": "C#4",
     "img": "/images/gs4.png",
     "doubleFingerings": ["T23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["23"]
   },
   {
     "noteId": "af4",
@@ -213,7 +239,8 @@
     "soundingPitch": "Db4",
     "img": "/images/af4.png",
     "doubleFingerings": ["T23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["23"]
   },
   {
     "noteId": "a4",
@@ -221,7 +248,8 @@
     "soundingPitch": "D4",
     "img": "/images/a4.png",
     "doubleFingerings": ["T12", "T3"],
-    "BbFingerings": ["12", "3"]
+    "BbFingerings": ["12", "3"],
+    "FFingerings": ["12", "3"]
   },
   {
     "noteId": "as4",
@@ -229,7 +257,8 @@
     "soundingPitch": "D#4",
     "img": "/images/as4.png",
     "doubleFingerings": ["T1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "bf4",
@@ -237,7 +266,8 @@
     "soundingPitch": "Eb4",
     "img": "/images/bf4.png",
     "doubleFingerings": ["T1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "b4",
@@ -245,7 +275,8 @@
     "soundingPitch": "E4",
     "img": "/images/b4.png",
     "doubleFingerings": ["T2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "cf5",
@@ -253,7 +284,8 @@
     "soundingPitch": "Fb4",
     "img": "/images/cf5.png",
     "doubleFingerings": ["T2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "bs4",
@@ -261,7 +293,8 @@
     "soundingPitch": "E#4",
     "img": "/images/bs4.png",
     "doubleFingerings": ["T"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "c5",
@@ -269,7 +302,8 @@
     "soundingPitch": "F4",
     "img": "/images/c5.png",
     "doubleFingerings": ["T"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "cs5",
@@ -277,7 +311,8 @@
     "soundingPitch": "F#4",
     "img": "/images/cs5.png",
     "doubleFingerings": ["T23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "df5",
@@ -285,7 +320,8 @@
     "soundingPitch": "Gb4",
     "img": "/images/df5.png",
     "doubleFingerings": ["T23"],
-    "BbFingerings": ["23"]
+    "BbFingerings": ["23"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "d5",
@@ -293,7 +329,8 @@
     "soundingPitch": "G4",
     "img": "/images/d5.png",
     "doubleFingerings": ["T12", "T3"],
-    "BbFingerings": ["12", "3"]
+    "BbFingerings": ["12", "3"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "ds5",
@@ -301,7 +338,8 @@
     "soundingPitch": "G#4",
     "img": "/images/ds5.png",
     "doubleFingerings": ["T1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "ef5",
@@ -309,7 +347,8 @@
     "soundingPitch": "Ab4",
     "img": "/images/ef5.png",
     "doubleFingerings": ["T1"],
-    "BbFingerings": ["1"]
+    "BbFingerings": ["1"],
+    "FFingerings": ["2"]
   },
   {
     "noteId": "e5",
@@ -317,7 +356,8 @@
     "soundingPitch": "A4",
     "img": "/images/e5.png",
     "doubleFingerings": ["T2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "ff5",
@@ -325,7 +365,8 @@
     "soundingPitch": "A4",
     "img": "/images/ff5.png",
     "doubleFingerings": ["T2"],
-    "BbFingerings": ["2"]
+    "BbFingerings": ["2"],
+    "FFingerings": ["0"]
   },
   {
     "noteId": "es5",
@@ -333,7 +374,8 @@
     "soundingPitch": "A#4",
     "img": "/images/es5.png",
     "doubleFingerings": ["T"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["1"]
   },
   {
     "noteId": "f5",
@@ -341,6 +383,7 @@
     "soundingPitch": "Bb4",
     "img": "/images/f5.png",
     "doubleFingerings": ["T"],
-    "BbFingerings": ["0"]
+    "BbFingerings": ["0"],
+    "FFingerings": ["1"]
   }
 ]

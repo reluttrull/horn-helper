@@ -16,6 +16,19 @@ export const Study = () => {
     )
   }
 
+  const getHornTypeDisplay = (ht) => {
+    switch (ht) {
+      case HornTypes.DOUBLEHORN:
+        return "Double Horn";
+      case HornTypes.SINGLEBB:
+        return "Single Bb Horn";
+      case HornTypes.SINGLEF:
+        return "Single F Horn";
+      default:
+        return null;
+    }
+  }
+
   const getMyAccidentals = () => {
     switch (range) {
       case Ranges.ONEOCTAVE:
@@ -62,6 +75,7 @@ export const Study = () => {
       <img className="column study-flashcard" src={note.img} />
       <span className={hornType == HornTypes.DOUBLEHORN ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.doubleFingerings)}</span>
       <span className={hornType == HornTypes.SINGLEBB ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.BbFingerings)}</span>
+      <span className={hornType == HornTypes.SINGLEF ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.FFingerings)}</span>
       <span className="column study-fingerings">{note.displayName}</span>
     </div>
   );
@@ -70,7 +84,7 @@ export const Study = () => {
 
   return (
     <>
-    <h3>{hornType == HornTypes.DOUBLEHORN ? "Double Horn" : "Single Bb Horn"} Fingering Chart</h3>
+    <h3>{getHornTypeDisplay(hornType)} Fingering Chart</h3>
     {FingeringChart}
     </>
   );

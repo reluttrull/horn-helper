@@ -126,6 +126,18 @@ export const FingeringPractice = () => {
     }));
   };
 
+  const getDefaultFingeringsForHornType = (i, ht) => {
+    switch (ht) {
+      case HornTypes.DOUBLEHORN:
+        return fingerings[i].doubleFingerings;
+      case HornTypes.SINGLEBB:
+        return fingerings[i].BbFingerings;
+      case HornTypes.SINGLEF:
+        return fingerings[i].FFingerings;
+      default:
+        return null;
+    }
+  }
 
 	const answerClick = (isCorrect, thisCombination) => {
     let oldcard = currentCard.current;
@@ -161,16 +173,13 @@ export const FingeringPractice = () => {
     } else {
       myNotes = Array.from(baseNotes);
     }
+
     // not in my list, or this fingering contained in previous fingering
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
-      || (thisCombination && alreadyHaveKeysDown(thisCombination, (hornType == HornTypes.DOUBLEHORN 
-                ? fingerings[currentCard.current].doubleFingerings[0] 
-                : fingerings[currentCard.current].BbFingerings[0])))) {
+      || (thisCombination && alreadyHaveKeysDown(thisCombination, 
+            getDefaultFingeringsForHornType(currentCard.current, hornType)[0]))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
     }
-    // if (myNotes.includes(fingerings[currentCard.current].noteId)) {
-    //   console.log('contains ' + fingerings[currentCard.current].noteId);
-    // }
     setDisplayCard(currentCard.current);
     //make changes based on selection
 		if (isCorrect && timerRunning) {
@@ -221,14 +230,7 @@ export const FingeringPractice = () => {
     }
     let noteFingerings = [];
     //console.log('horn type is ' + hornType);
-    switch (hornType) {
-      case HornTypes.SINGLEBB:
-        noteFingerings = fingerings[currentCard.current].BbFingerings;
-        break;
-      case HornTypes.DOUBLEHORN:
-        noteFingerings = fingerings[currentCard.current].doubleFingerings;
-        break;
-    }
+    noteFingerings = getDefaultFingeringsForHornType(currentCard.current, hornType)[0];
     //console.log(fingerings[currentCard.current]);
     if (noteFingerings.includes(combination)) answerClick(true, combination);
     return combination;
