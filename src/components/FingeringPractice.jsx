@@ -13,7 +13,7 @@ export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [score, setScore] = useState(0);
-  const [initials, setInitials] = useState((getScores()[0] ? getScores()[0].initials : ""));
+  const [initials, setInitials] = useState("");
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
   const [timerRunning, setTimerRunning] = useState(null);
@@ -128,12 +128,24 @@ export const FingeringPractice = () => {
 
 
 	const answerClick = (isCorrect, thisCombination) => {
-    if (isCorrect && soundOn && fingerings[currentCard.current]) {
-      //create a synth and connect it to the main output (your speakers)
-      const synth = new Tone.Synth().toDestination();
-      //play a middle 'C' for the duration of an 8th note
-      console.log('sounding pitch is ' + fingerings[currentCard.current].soundingPitch);
-      synth.triggerAttackRelease(fingerings[currentCard.current].soundingPitch, "8n");
+    let oldcard = currentCard.current;
+    if (isCorrect && soundOn && fingerings[oldcard]) {
+      const sampler = new Tone.Sampler({
+        "Bb2" : "/samples/Bb2.mp3",
+        "D3" : "/samples/D3.mp3",
+        "F3" : "/samples/F3.mp3",
+        "A3" : "/samples/A3.mp3",
+        "C4" : "/samples/C4.mp3",
+        "E4" : "/samples/E4.mp3",
+        "G4" : "/samples/G4.mp3",
+      }, function(){
+        //sampler will repitch the closest sample
+        console.log('ready and playing ' + fingerings[oldcard].soundingPitch);
+        sampler.triggerAttackRelease(fingerings[oldcard].soundingPitch, "2n");
+      }).toDestination();
+      //// old synth fallback
+      // console.log('sounding pitch is ' + fingerings[currentCard.current].soundingPitch);
+      //synth.triggerAttackRelease(fingerings[currentCard.current].soundingPitch, "8n");
     }
     //move on
 		currentCard.current = parseInt(Math.random() * fingerings.length);
@@ -252,6 +264,9 @@ export const FingeringPractice = () => {
   }
 
   useEffect(() => {
+    if (getScores()[0]) {
+      setInitials(getScores()[0].initials);
+    };
 		answerClick(false);
   }, []);
 
