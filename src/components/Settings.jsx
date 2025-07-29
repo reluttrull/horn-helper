@@ -52,7 +52,7 @@ export const Settings = () => {
         <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
           <option value="...">...</option>
           <option value={AccidentalSettings.NO}>none</option>
-          <option value={AccidentalSettings.EASY}>only the most common few</option>
+          <option value={AccidentalSettings.EASY}>only a few of the most common</option>
           <option value={AccidentalSettings.MOST}>almost all</option>
           <option value={AccidentalSettings.ALL}>all, including E♯, C♭, etc.</option>
         </select>  
