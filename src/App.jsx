@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FaBookOpen, FaChartLine, FaGear, FaPenToSquare } from 'react-icons/fa6';
+import { FaBookOpen, FaChartLine, FaGear, FaPlay } from 'react-icons/fa6';
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { FingeringPractice } from './components/FingeringPractice.jsx';
@@ -55,7 +55,7 @@ function App() {
         </div>
       </div>)}
       <button alt="play" title="Play" 
-            onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPenToSquare /></button>
+            onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>
       <button alt="study" title="Study" 
             onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
       <button alt="settings" title="Settings" 
