@@ -7,7 +7,7 @@ import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMo
 import { getScores } from "../utils/DataAccess.js";
 import fingerings from '../data/fingeringChart.json';
 import * as Tone from 'tone';
-import { FaVolumeOff, FaVolumeHigh } from 'react-icons/fa6';
+import { FaVolumeXmark, FaVolumeHigh } from 'react-icons/fa6';
 
 export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
@@ -294,7 +294,7 @@ export const FingeringPractice = () => {
           <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
         <div className="column">
-          <button onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeOff />}</button>
+          <button onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
           <h4 className="console-style">Score = {score}</h4>
         </div>
