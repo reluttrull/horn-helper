@@ -12,15 +12,18 @@ import { FaVolumeOff, FaVolumeHigh } from 'react-icons/fa6';
 export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
+  const [gameOver, setGameOver] = useState(false);
+  const [timerRunning, setTimerRunning] = useState(null);
   const [score, setScore] = useState(0);
   const [initials, setInitials] = useState("");
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
-  const [timerRunning, setTimerRunning] = useState(null);
-  const [gameOver, setGameOver] = useState(false);
+  // user settings
   const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+
+  // horn key ids
   const ButtonNames = {
     T: "buttonT",
     ONE: "button1",
@@ -29,6 +32,8 @@ export const FingeringPractice = () => {
     O: "buttonO"
   }
 
+  // check to see if the user already has down the combination for the next card
+  // (if so, we'll skip this card, so they don't get free points)
   const alreadyHaveKeysDown = (keysDown, possibleNextFingerings) => {
     let i = 0;
     while (i < possibleNextFingerings.length) {
@@ -40,7 +45,7 @@ export const FingeringPractice = () => {
     return false;
   };
 
-  //shortcuts
+  // handle keyboard shortcuts
   const handleKeyPress = useCallback((event) => {
     if (event.key == 'x') {
       handleButtonClickOn(ButtonNames.T);
@@ -57,6 +62,7 @@ export const FingeringPractice = () => {
     }
   }, []);
 
+  // handle keyboard shortcuts
   const handleKeyUp = useCallback((event) => {
     if (event.key == 'x') {
       handleButtonClickOff(ButtonNames.T);
@@ -79,6 +85,7 @@ export const FingeringPractice = () => {
     }
   }, []);
 
+  // listen for keyboard shortcuts
   useEffect(() => {
     document.addEventListener('keydown', handleKeyPress);
     return () => {
@@ -102,6 +109,7 @@ export const FingeringPractice = () => {
     buttonO: false
   });
 
+  // handle emergency clear all (probably don't need anymore)
   const handleClear = () => {
     setButtonStates({
       buttonT: false,
@@ -112,6 +120,7 @@ export const FingeringPractice = () => {
     });
   }
 
+  // set button states for just this button
   const handleButtonClickOn = (button) => {
     setButtonStates((prevState) => ({
       ...prevState,
@@ -126,6 +135,7 @@ export const FingeringPractice = () => {
     }));
   };
 
+  // returns this card's (i's) fingerings for user's horn type (ht)
   const getDefaultFingeringsForHornType = (i, ht) => {
     switch (ht) {
       case HornTypes.DOUBLEHORN:
@@ -139,8 +149,11 @@ export const FingeringPractice = () => {
     }
   }
 
+  // most of the time we get here, it's to handle correct answer and move on
+  // need to refactor and split this up a bit
 	const answerClick = (isCorrect, thisCombination) => {
     let oldcard = currentCard.current;
+    // play audio of correct answer
     if (isCorrect && soundOn && fingerings[oldcard]) {
       const sampler = new Tone.Sampler({
         "Bb2" : "/samples/Bb2.mp3",
@@ -155,13 +168,12 @@ export const FingeringPractice = () => {
         console.log('ready and playing ' + fingerings[oldcard].soundingPitch);
         sampler.triggerAttackRelease(fingerings[oldcard].soundingPitch, "2n");
       }).toDestination();
-      //// old synth fallback
-      // console.log('sounding pitch is ' + fingerings[currentCard.current].soundingPitch);
-      //synth.triggerAttackRelease(fingerings[currentCard.current].soundingPitch, "8n");
     }
-    //move on
+    //move on to next card
 		currentCard.current = parseInt(Math.random() * fingerings.length);
     console.log(currentCard.current);
+    // gather user's possible notes to draw from
+    // probably need to pull this out and only perform once
     let baseNotes = range == Ranges.ONEOCTAVE ? oneOctave : twoOctaves;
     let myNotes = [];
     if (useAccidentals == AccidentalSettings.EASY) {
@@ -174,22 +186,22 @@ export const FingeringPractice = () => {
       myNotes = Array.from(baseNotes);
     }
 
-    // not in my list, or this fingering contained in previous fingering
+    // if card is not in my list, or this fingering contained in previous fingering:
+    // move on to another random card
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
       || (thisCombination && alreadyHaveKeysDown(thisCombination, 
             getDefaultFingeringsForHornType(currentCard.current, hornType)[0]))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
     }
+    // we got to a card that will work
     setDisplayCard(currentCard.current);
     //make changes based on selection
 		if (isCorrect && timerRunning) {
 			setScore(score + 1);
 		}
-    else {
-      setScore(score);
-    }     
 	};
 
+  // this runs constantly, checking if buttons pressed match target fingerings
   const checkCombination = () => {
     const { buttonT, button1, button2, button3, buttonO } = buttonStates;
     let combination = "";
@@ -229,13 +241,14 @@ export const FingeringPractice = () => {
       combination = "nothing selected";
     }
     let noteFingerings = [];
-    //console.log('horn type is ' + hornType);
     noteFingerings = getDefaultFingeringsForHornType(currentCard.current, hornType)[0];
-    //console.log(fingerings[currentCard.current]);
+    // if we got it right...
     if (noteFingerings.includes(combination)) answerClick(true, combination);
+    // either way, return what we have down
     return combination;
   };
 
+  // see if timer still running (triggered from CountdownTimer)
   const handleTimerData = (data) => {
     setTimerRunning(data);
     if (!data) {
@@ -243,21 +256,22 @@ export const FingeringPractice = () => {
     }
   }
 
+  // validate initials input as typed
   const handleInitialsChange = (e) => {
     const regex = /^[a-zA-Z]{0,3}$/; // Allow only three alpha characters
     if (regex.test(e.target.value)) {
       setInitials(e.target.value);
-      console.log('set to ' + initials);
     }
   };
 
+  // save score data and reset game state
   const handleSaveInitials = () => {
-    console.log('initials saved as ' + initials);
     localStorage.setItem('score:'+initials+','+new Date(), score);
     setScore(0);
     setGameOver(false);
     setGameStarted(false);
   }
+  // make sure user settings are up to date and start game
   const handleGameStart = () => {
     setHornType(localStorage.getItem(LocalStorageKeys.HORNTYPE));
     setRange(localStorage.getItem(LocalStorageKeys.RANGE));
@@ -267,6 +281,7 @@ export const FingeringPractice = () => {
 
   useEffect(() => {
     if (getScores()[0]) {
+      // populate initials based on most recent score, if present
       setInitials(getScores()[0].initials);
     };
 		answerClick(false);

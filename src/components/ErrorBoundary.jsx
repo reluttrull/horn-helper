@@ -5,6 +5,7 @@ class ErrorBoundary extends React.Component {
     super(props);
     this.state = { hasError: false, error: null, errorInfo: null };
     
+    // copy error info to user's clipboard and give them next steps
     this.state.copyText = () => {
       const textBox = document.getElementById("errorText");
       navigator.clipboard.writeText(textBox.value);
@@ -28,10 +29,7 @@ class ErrorBoundary extends React.Component {
       // Render fallback UI
       return <div>
         <h3>Something went wrong.</h3>
-        <p>Please try refreshing the page.
-          {/* <a href={"mailto:hornhelperapp@gmail.com?subject=Error%Reported&body="
-            +this.state.error+this.state.errorInfo?.componentStack}>reporting the error.</a> */}
-        </p>
+        <p>Please try refreshing the page.</p>
         <textarea id="errorText" className="error-text" value={this.state.error + this.state.errorInfo?.componentStack} />
         <button onClick={() => this.state.copyText()}>Copy error info to send report</button>
       </div>;

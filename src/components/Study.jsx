@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import fingerings from '../data/fingeringChart.json'
 import { LocalStorageKeys, HornTypes, Ranges, AccidentalSettings } from "../utils/GlobalKeys.js";
 import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMost, 
@@ -10,6 +10,7 @@ export const Study = () => {
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
 
+  // show all the listed fingerings for each note
   const getAlternates = (fList) => {
     return fList.map(fing => 
       <span className="row">{fing}</span>
@@ -29,6 +30,7 @@ export const Study = () => {
     }
   }
 
+  // get the appropriate accidentals to add in to our list
   const getMyAccidentals = () => {
     switch (range) {
       case Ranges.ONEOCTAVE:
@@ -57,6 +59,7 @@ export const Study = () => {
     }
   }
 
+  // based on settings, get all the notes we need to display
   const getMyNotes = () => {
     let myRange = [];
     switch (range) {
@@ -70,6 +73,7 @@ export const Study = () => {
     return fingerings.filter(f => myRange.includes(f.noteId));
   }
 
+  // display note info
   const FingeringChart = getMyNotes().map(note =>
     <div className="row study-row" key={getMyNotes().indexOf(note)}>
       <img className="column study-flashcard" src={note.img} />

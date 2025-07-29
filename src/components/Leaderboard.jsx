@@ -13,18 +13,9 @@ export const Leaderboard = () => {
   );
 
   useEffect(() => {
-    // var i, scoreArray = [];
-    // for (i in localStorage) {
-    //   if (i.startsWith('score:')) {
-    //     let split = i.substring(6).split(',');
-    //     let thisScore = {"initials": split[0],"date": new Date(split[1]).toDateString(),"score": localStorage.getItem(i)};
-    //     console.log(thisScore);
-    //     scoreArray.push(thisScore);
-    //   }
-    // }
     var scoreArray = getScores();
+    // sort with highest score at the top
     scoreArray.sort((a,b) => b.score - a.score);
-    console.log(scoreArray);
     setMyScores(Array.from(scoreArray));
   }, []);
   

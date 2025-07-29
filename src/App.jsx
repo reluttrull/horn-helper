@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { FaBookOpen, FaChartLine, FaGear, FaPenToSquare } from 'react-icons/fa6';
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary.jsx';
@@ -6,10 +6,9 @@ import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
 import { Leaderboard } from './components/Leaderboard.jsx';
 import { Study } from './components/Study.jsx';
-import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from './utils/GlobalKeys.js';
+import { LocalStorageKeys } from './utils/GlobalKeys.js';
 
 function App() {
-  const [count, setCount] = useState(0);
   const Tabs = {
     FINGERINGPRACTICE: 'fingeringPractice',
     SETTINGS: 'settings',
@@ -18,12 +17,10 @@ function App() {
     STUDY: 'study'
   };
   const [tab, setTab] = useState(Tabs.FINGERINGPRACTICE);
-  const [firstTime, setFirstTime] = useState(localStorage.getItem('lastLogin') == null);
+
   const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
-
-  const closeModal = () => setFirstTime(false);
 
   const checkFirstTime = () => {
     if (hornType && range && useAccidentals) {
@@ -38,6 +35,7 @@ function App() {
     }
   }
 
+  // if state changed in settings component, check if we can get rid of first-time modal
   const handleSettingsChange = () => {
     setHornType(localStorage.getItem(LocalStorageKeys.HORNTYPE));
     setRange(localStorage.getItem(LocalStorageKeys.RANGE));
@@ -45,19 +43,15 @@ function App() {
     checkFirstTime();
   };
 
-  useEffect (() => {
-    checkFirstTime();
-  }, []);
-
   return (
     <>
+    {/* show modal first time */}
       {checkFirstTime() && (
       <div className="modal-overlay">
         <div className="modal-content">
           <h2>First time?</h2>
           <p>Choose your settings...</p>
           <Settings triggerParent={handleSettingsChange} />
-          <button className={checkFirstTime() ? "invisible" : "visible"} onClick={closeModal}>Close</button>
         </div>
       </div>)}
       <button alt="play" title="Play" 
