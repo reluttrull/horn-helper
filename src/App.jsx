@@ -69,8 +69,8 @@ function App() {
   return (
     <>
       {checkFirstTime() && (
-      <div className="modal-overlay" onClick={closeModal}>
-        <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div className="modal-overlay">
+        <div className="modal-content">
           <h2>First time?</h2>
           <p>Choose your settings...</p>
           <div>
@@ -111,12 +111,13 @@ function App() {
             onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
       <button alt="leaderboard" title="Leaderboard" 
             onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
+      {!checkFirstTime() && (
       <ErrorBoundary>
         { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
         { tab == Tabs.STUDY ? <Study /> : <div></div>}
         { tab == Tabs.SETTINGS ? <Settings /> : <div></div>}
         { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
-      </ErrorBoundary>
+      </ErrorBoundary>)}
     </>
   )
 }
