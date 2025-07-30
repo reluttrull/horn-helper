@@ -4,69 +4,69 @@
   padding: 2rem;
   text-align: center;
 }
-/* Styles for users in dark mode */
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: #121212;
-    color: #ffffff;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background: rgb(43, 42, 42);
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-  }
-  
-  .console-style {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color:#00FF00;
-  }
+
+.dark-mode > * .modal-overlay {
+  background: rgba(0, 0, 0, 0.5);
 }
 
-/* Styles for users in light mode */
-@media (prefers-color-scheme: light) {
-  body {
-    background-color: #ffffff;
-    color: #000000;
-  }
-  .modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: #EEEEEE;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .modal-content {
-    background: #eeeeee;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 500px;
-    width: 100%;
-    text-align: center;
-  }
+.dark-mode > * .modal-content {
+  background: rgb(43, 42, 42);
+}
+
+.dark-mode > * .console-style {
+  color:#00FF00;
+}
+
+.dark-mode > * button {
+  background-color: #1a1a1a;
+}
+
+.light-mode > * .modal-overlay {
+  background: #EEEEEE;
+}
+.light-mode > * .modal-content {
+  background: #eeeeee;
+}
   
-  .console-style {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-    color: green;
-  }
+.light-mode > * .console-style {
+  color: green;
+}
+
+.light-mode > * a:hover {
+  color: #747bff;
+}
+
+#theme-toggle {
+  float:right;
+}
+
+#tab-block {
+  padding-bottom:5px;
+}
+
+#tab-block > button {
+  margin-right: 3px;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.modal-content {
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+  text-align: center;
+}
+.console-style {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .logo {

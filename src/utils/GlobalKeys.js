@@ -1,7 +1,8 @@
 export const LocalStorageKeys = {
   HORNTYPE: 'hornType',
   RANGE: 'range',
-  USEACCIDENTALS: 'accidentals'
+  USEACCIDENTALS: 'accidentals',
+  THEME: 'theme'
 };
 
 export const Ranges = {
@@ -21,3 +22,8 @@ export const AccidentalSettings = {
   MOST: 'most',
   ALL: 'all'
 };
+
+export const Themes = {
+  DARKMODE: 'darkMode',
+  LIGHTMODE: 'lightMode'
+}

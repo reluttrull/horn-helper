@@ -1,12 +1,12 @@
-import { useState } from 'react'
-import { FaBookOpen, FaChartLine, FaGear, FaPlay } from 'react-icons/fa6';
+import { useEffect, useState } from 'react'
+import { FaBookOpen, FaChartLine, FaGear, FaPlay, FaArrowLeft, FaArrowRight, FaSun, FaMoon } from 'react-icons/fa6';
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
 import { Leaderboard } from './components/Leaderboard.jsx';
 import { Study } from './components/Study.jsx';
-import { LocalStorageKeys } from './utils/GlobalKeys.js';
+import { LocalStorageKeys, Themes } from './utils/GlobalKeys.js';
 
 function App() {
   const Tabs = {
@@ -21,6 +21,7 @@ function App() {
   const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+  const [theme, setTheme] = useState(localStorage.getItem(LocalStorageKeys.THEME));
 
   const checkFirstTime = () => {
     if (hornType && range && useAccidentals) {
@@ -43,6 +44,29 @@ function App() {
     checkFirstTime();
   };
 
+  const toggleTheme = () => {
+    if (theme == Themes.DARKMODE) {
+      setTheme(Themes.LIGHTMODE);
+    } else if (theme == Themes.LIGHTMODE) {
+      setTheme(Themes.DARKMODE);
+    }
+  }
+
+  // whenever changed, switch html body to new mode class
+  useEffect(() => {
+    document.body.className = (theme == Themes.DARKMODE ? "dark-mode" : "light-mode");
+    localStorage.setItem(LocalStorageKeys.THEME, theme);
+  }, [theme]);
+
+  // on first render, if setting not stored, check system light/dark mode preference
+  useEffect(() => {
+    if (theme == null) {
+      setTheme(window.matchMedia("(prefers-color-scheme: dark)")?.matches ? 
+              Themes.DARKMODE : Themes.LIGHTMODE);
+      console.log('first time ' + (theme == Themes.DARKMODE ? 'dark' : 'light'));
+    }
+  }, []);
+
   return (
     <>
     {/* show modal first time */}
@@ -54,14 +78,21 @@ function App() {
           <Settings triggerParent={handleSettingsChange} />
         </div>
       </div>)}
-      <button alt="play" title="Play" 
-            onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>
-      <button alt="study" title="Study" 
-            onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
-      <button alt="settings" title="Settings" 
-            onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
-      <button alt="leaderboard" title="Leaderboard" 
-            onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
+      <div id="tab-block">
+        <button alt="play" title="Play" 
+              onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>
+        <button alt="study" title="Study" 
+              onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
+        <button alt="settings" title="Settings" 
+              onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
+        <button alt="leaderboard" title="Leaderboard" 
+              onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
+        <button alt="light/dark theme" title="Light/Dark Theme" id="theme-toggle" 
+              onClick={() => toggleTheme()}>
+                {theme == Themes.DARKMODE ? <FaArrowLeft /> : <FaSun />}
+                {theme == Themes.DARKMODE ? <FaMoon /> : <FaArrowRight />}
+        </button>
+      </div>
       {!checkFirstTime() && (
       <ErrorBoundary>
         { tab == Tabs.FINGERINGPRACTICE ? <FingeringPractice /> : <div></div>}
