@@ -156,13 +156,13 @@ export const FingeringPractice = () => {
     // play audio of correct answer
     if (isCorrect && soundOn && fingerings[oldcard]) {
       const sampler = new Tone.Sampler({
-        "Bb2" : "/samples/Bb2.mp3",
-        "D3" : "/samples/D3.mp3",
-        "F3" : "/samples/F3.mp3",
-        "A3" : "/samples/A3.mp3",
-        "C4" : "/samples/C4.mp3",
-        "E4" : "/samples/E4.mp3",
-        "G4" : "/samples/G4.mp3",
+        "Bb2" : "/horn-helper/samples/Bb2.mp3",
+        "D3" : "/horn-helper/samples/D3.mp3",
+        "F3" : "/horn-helper/samples/F3.mp3",
+        "A3" : "/horn-helper/samples/A3.mp3",
+        "C4" : "/horn-helper/samples/C4.mp3",
+        "E4" : "/horn-helper/samples/E4.mp3",
+        "G4" : "/horn-helper/samples/G4.mp3",
       }, function(){
         //sampler will repitch the closest sample
         console.log('ready and playing ' + fingerings[oldcard].soundingPitch);
@@ -277,6 +277,7 @@ export const FingeringPractice = () => {
     setRange(localStorage.getItem(LocalStorageKeys.RANGE));
     setUseAccidentals(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
     setGameStarted(true);
+    Tone.start();
   }
 
   useEffect(() => {
