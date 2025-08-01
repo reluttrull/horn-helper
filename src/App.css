@@ -19,6 +19,7 @@
 
 .dark-mode > * button {
   background-color: #1a1a1a;
+  color: white;
 }
 
 .light-mode > * .modal-overlay {
@@ -34,6 +35,10 @@
 
 .light-mode > * a:hover {
   color: #747bff;
+}
+
+.light-mode > * button {
+  color: black;
 }
 
 #theme-toggle {
