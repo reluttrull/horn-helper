@@ -76,7 +76,7 @@ export const Study = () => {
   // display note info
   const FingeringChart = getMyNotes().map(note =>
     <div className="row study-row" key={getMyNotes().indexOf(note)}>
-      <img className="column study-flashcard" src={note.img} />
+      <img className="column study-flashcard" src={"/horn-helper" + note.img} />
       <span className={hornType == HornTypes.DOUBLEHORN ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.doubleFingerings)}</span>
       <span className={hornType == HornTypes.SINGLEBB ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.BbFingerings)}</span>
       <span className={hornType == HornTypes.SINGLEF ? "visible column study-fingerings" : "invisible column"}>{getAlternates(note.FFingerings)}</span>

@@ -291,7 +291,7 @@ export const FingeringPractice = () => {
     <div>
       <div className="row">
         <div className="column">  
-          <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
+          <img className="flashcard" src={"/horn-helper" + fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
         <div className="column">
           <button id="volume-control" onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
