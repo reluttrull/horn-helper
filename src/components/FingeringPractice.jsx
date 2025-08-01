@@ -294,7 +294,7 @@ export const FingeringPractice = () => {
           <img className="flashcard" src={fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
         <div className="column">
-          <button onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
+          <button id="volume-control" onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
           <h4 className="console-style">Score = {score}</h4>
         </div>

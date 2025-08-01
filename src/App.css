@@ -109,6 +109,10 @@
   height: 1in;
 }
 
+#volume-control {
+  margin-right: 5px;
+}
+
 .study-flashcard {
   width: 1.6in;
 }
