@@ -1,9 +1,9 @@
 {
-  "name": "horn-helper",
+  "name": "horn-hero",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://reluttrull.github.io/horn-helper",
+  "homepage": "https://reluttrull.github.io/horn-hero",
   "scripts": {
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build",

@@ -69,15 +69,6 @@ function App() {
 
   return (
     <>
-    {/* show modal first time */}
-      {checkFirstTime() && (
-      <div className="modal-overlay">
-        <div className="modal-content">
-          <h2>First time?</h2>
-          <p>Choose your settings...</p>
-          <Settings triggerParent={handleSettingsChange} />
-        </div>
-      </div>)}
       <div id="tab-block">
         <button alt="play" title="Play" 
               onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>

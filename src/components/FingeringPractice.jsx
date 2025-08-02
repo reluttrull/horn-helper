@@ -23,6 +23,29 @@ export const FingeringPractice = () => {
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
 
+  const [pitchX, setPitchX] = useState(0);
+  const [pitchY, setPitchY] = useState(0);
+
+  let bBaseFreq = 30.87;
+  let cBaseFreq = 32.70;
+  let dbBaseFreq = 34.65;
+  let dBaseFreq = 36.71;
+  let ebBaseFreq = 38.89;
+  let eBaseFreq = 41.20;
+  let fBaseFreq = 43.65;
+  let gbBaseFreq = 46.25;
+  let gBaseFreq = 49.00;
+  let abBaseFreq = 51.91;
+  let aBaseFreq = 55.00;
+  let bbBaseFreq = 58.27;
+  let currentFreq = 0;
+  
+  // Create a synth instance
+  const customContext = new Tone.Context({ latencyHint: "playback" });
+  Tone.setContext(customContext);
+  const myVol = new Tone.Volume();
+  const [synth, setSynth] = useState(new Tone.Synth().toDestination({ volume: myVol }));
+
   // horn key ids
   const ButtonNames = {
     T: "buttonT",
@@ -156,13 +179,13 @@ export const FingeringPractice = () => {
     // play audio of correct answer
     if (isCorrect && soundOn && fingerings[oldcard]) {
       const sampler = new Tone.Sampler({
-        "Bb2" : "/horn-helper/samples/Bb2.mp3",
-        "D3" : "/horn-helper/samples/D3.mp3",
-        "F3" : "/horn-helper/samples/F3.mp3",
-        "A3" : "/horn-helper/samples/A3.mp3",
-        "C4" : "/horn-helper/samples/C4.mp3",
-        "E4" : "/horn-helper/samples/E4.mp3",
-        "G4" : "/horn-helper/samples/G4.mp3",
+        "Bb2" : "/horn-hero/samples/Bb2.mp3",
+        "D3" : "/horn-hero/samples/D3.mp3",
+        "F3" : "/horn-hero/samples/F3.mp3",
+        "A3" : "/horn-hero/samples/A3.mp3",
+        "C4" : "/horn-hero/samples/C4.mp3",
+        "E4" : "/horn-hero/samples/E4.mp3",
+        "G4" : "/horn-hero/samples/G4.mp3",
       }, function(){
         //sampler will repitch the closest sample
         console.log('ready and playing ' + fingerings[oldcard].soundingPitch);
@@ -202,50 +225,61 @@ export const FingeringPractice = () => {
 	};
 
   // this runs constantly, checking if buttons pressed match target fingerings
-  const checkCombination = () => {
+  const getBaseFrequency = () => {
     const { buttonT, button1, button2, button3, buttonO } = buttonStates;
     let combination = "";
     if (!buttonT && button1 && !button2 && !button3) {
       combination = "1";
+      return ebBaseFreq;
     } else if (!buttonT && !button1 && button2 && !button3) {
       combination = "2";
+      return eBaseFreq;
     } else if (!buttonT && !button1 && !button2 && button3) {
       combination = "3";
+      return dBaseFreq;
     } else if (!buttonT && button1 && button2 && !button3) {
       combination = "12";
+      return dBaseFreq;
     } else if (!buttonT && !button1 && button2 && button3) {
       combination = "23";
+      return dbBaseFreq;
     } else if (!buttonT && button1 && !button2 && button3) {
       combination = "13";
+      return cBaseFreq;
     } else if (!buttonT && button1 && button2 && button3) {
       combination = "123";
+      return bBaseFreq;
     } else if (buttonT && !button1 && !button2 && !button3) {
       combination = "T";
+      return bbBaseFreq;
     } else if (buttonT && button1 && !button2 && !button3) {
       combination = "T1";
+      return abBaseFreq;
     } else if (buttonT && !button1 && button2 && !button3) {
       combination = "T2";
+      return aBaseFreq;
     } else if (buttonT && !button1 && !button2 && button3) {
       combination = "T3";
+      return gBaseFreq;
     } else if (buttonT && button1 && button2 && !button3) {
       combination = "T12";
+      return gBaseFreq;
     } else if (buttonT && !button1 && button2 && button3) {
       combination = "T23";
+      return gbBaseFreq;
     } else if (buttonT && button1 && !button2 && button3) {
       combination = "T13";
+      return fBaseFreq;
     } else if (buttonT && button1 && button2 && button3) {
       combination = "T123";
+      return eBaseFreq;
     } else if (buttonO) {
       combination = "0";
+      return fBaseFreq;
     } else {
       combination = "nothing selected";
+      return fBaseFreq;
     }
-    let noteFingerings = [];
-    noteFingerings = getDefaultFingeringsForHornType(currentCard.current, hornType)[0];
-    // if we got it right...
-    if (noteFingerings.includes(combination)) answerClick(true, combination);
-    // either way, return what we have down
-    return combination;
   };
 
   // see if timer still running (triggered from CountdownTimer)
@@ -280,6 +314,48 @@ export const FingeringPractice = () => {
     Tone.start();
   }
 
+  const getHarmonicSeriesIndex = (loc) => {
+    let frac = loc / 400;
+    let series = Array.from({length: 16}, (e, i)=> i+1);
+    for (let i = series.length; i > -1; i--) {
+      if (frac < 1 / series[i]) return series[i];
+    }
+  }
+    
+	const setPitchCoordinates = (event) => {
+    var br = document.getElementById("pitch-control").getBoundingClientRect();
+    let x = parseInt(event.targetTouches[0].pageX - br.left || event.changedTouches[0].pageX - br.left);
+    let y = parseInt(event.targetTouches[0].pageY - br.top || event.changedTouches[0].pageY - br.top);
+		setPitchX(x);
+    setPitchY(y);
+	}
+
+  const startNote = (event) => {
+    setPitchCoordinates(event);
+    currentFreq = getBaseFrequency() * getHarmonicSeriesIndex(pitchY);
+    console.log('freq ' + currentFreq);
+    if (synth && pitchY > 0) {
+      console.log(pitchY + ', ' + getHarmonicSeriesIndex(pitchY))
+      synth.triggerAttack(currentFreq); // Start playing a note
+    }
+  }
+
+  const moveNote = (event) => {
+    setPitchCoordinates(event);
+    let thisFreq = getBaseFrequency() * getHarmonicSeriesIndex(pitchY);
+    if (thisFreq != currentFreq) {
+      currentFreq = thisFreq;
+      synth.setNote(currentFreq);
+    }
+  }
+  
+  const endNote = (event) => {
+    console.log(synth);
+    if (synth) {
+      synth.triggerRelease(); // Start playing a note
+    }
+  }
+
   useEffect(() => {
     if (getScores()[0]) {
       // populate initials based on most recent score, if present
@@ -290,34 +366,14 @@ export const FingeringPractice = () => {
 
   return (
     <div>
-      <div className="row">
-        <div className="column">  
-          <img className="flashcard" src={"/horn-helper" + fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
-        </div>
-        <div className="column">
-          <button id="volume-control" onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
-          {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
-          <h4 className="console-style">Score = {score}</h4>
-        </div>
-      </div>
-      <div className={gameOver ? "visible" : "invisible"}>
-        game over 
-        <input
-          type="text"
-          value={initials}
-          onChange={handleInitialsChange}
-          placeholder="Enter up to three initials"
-        />
-        <button onClick={handleSaveInitials}>Save</button>
-      </div>
-      <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
+      <div id="valve-control">
         <div>
           <button className="key"
                   onMouseDown={() => handleButtonClickOn(ButtonNames.THREE)}
                   onTouchStart={() => handleButtonClickOn(ButtonNames.THREE)}
                   onMouseUp={() => handleButtonClickOff(ButtonNames.THREE)}
                   onTouchEnd={() => handleButtonClickOff(ButtonNames.THREE)}>
-            3 (3)
+            <span>3 (3)</span>
           </button>
         </div>
         <div>
@@ -326,7 +382,7 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn(ButtonNames.TWO)}
                   onMouseUp={() => handleButtonClickOff(ButtonNames.TWO)}
                   onTouchEnd={() => handleButtonClickOff(ButtonNames.TWO)}>
-            2 (e)
+            <span>2 (e)</span>
           </button>
         </div>
         <div>
@@ -335,27 +391,22 @@ export const FingeringPractice = () => {
                   onTouchStart={() => handleButtonClickOn(ButtonNames.ONE)}
                   onMouseUp={() => handleButtonClickOff(ButtonNames.ONE)}
                   onTouchEnd={() => handleButtonClickOff(ButtonNames.ONE)}>
-            1 (d)
+            <span>1 (d)</span>
           </button>
         </div>
         <div>
-          <button className={hornType == HornTypes.DOUBLEHORN ? "key" : "invisible key"}
+          <button className="key"
                   onMouseDown={() => handleButtonClickOn(ButtonNames.T)}
                   onTouchStart={() => handleButtonClickOn(ButtonNames.T)}
                   onMouseUp={() => handleButtonClickOff(ButtonNames.T)}
                   onTouchEnd={() => handleButtonClickOff(ButtonNames.T)}>
-            T (x)
-          </button>
-          <button className="key"
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.O)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.O)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.O)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.O)}>
-            open (o)
+            <span>T (x)</span>
           </button>
         </div>
       </div>
-      <p className="invisible">{checkCombination()}</p>
+      <div id="pitch-control" onTouchStart={startNote} onTouchMove={moveNote} 
+          onTouchEnd={endNote}></div>
+      <p>{getBaseFrequency()}</p>
     </div>
   );
 };

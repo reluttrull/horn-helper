@@ -175,3 +175,23 @@
 .leaderboard-cell {
   white-space: nowrap;
 }
+
+button > span {
+  touch-action: none;
+}
+
+#valve-control {
+  height: 4.56in;
+  width: 1.45in;
+  float: left;
+  background-color: red;
+  touch-action: none;
+}
+
+#pitch-control {
+  height: 400px;
+  width: 1.45in;
+  float: right;
+  background-color: blue;
+  touch-action: none;
+}
