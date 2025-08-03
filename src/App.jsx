@@ -81,21 +81,16 @@ function App() {
         </div>
       </div>)}
       <div id="tab-block">
-        <button alt="play" title="Play" 
+        <button alt="play" title="Play" class="tab"
               onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>
-        <button alt="study" title="Study" 
+        <button alt="study" title="Study"  class="tab"
               onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
-        <button alt="settings" title="Settings" 
+        <button alt="settings" title="Settings"  class="tab"
               onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
-        <button alt="leaderboard" title="Leaderboard" 
+        <button alt="leaderboard" title="Leaderboard"  class="tab"
               onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
-        <button alt="help" title="Help" 
+        <button alt="help" title="Help"  class="tab"
               onClick={() => {setTab(Tabs.HELP)}}><FaQuestion /></button>
-        <button alt="light/dark theme" title="Light/Dark Theme" id="theme-toggle" 
-              onClick={() => toggleTheme()}>
-                {theme == Themes.DARKMODE ? <FaArrowLeft /> : <FaSun />}
-                {theme == Themes.DARKMODE ? <FaMoon /> : <FaArrowRight />}
-        </button>
       </div>
       {!checkFirstTime() && (
       <ErrorBoundary>
@@ -105,6 +100,13 @@ function App() {
         { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
         { tab == Tabs.HELP ? <Help /> : <div></div>}
       </ErrorBoundary>)}
+      <div id="footer">
+        <button alt="light/dark theme" title="Light/Dark Theme" id="theme-toggle" 
+              onClick={() => toggleTheme()}>
+                {theme == Themes.DARKMODE ? <FaArrowLeft /> : <FaSun />}
+                {theme == Themes.DARKMODE ? <FaMoon /> : <FaArrowRight />}
+        </button>
+      </div>
     </>
   )
 }

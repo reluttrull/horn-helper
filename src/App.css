@@ -1,5 +1,6 @@
 #root {
-  max-width: 1280px;
+  box-sizing: border-box;
+  max-width: 100%;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
@@ -41,6 +42,10 @@
   color: black;
 }
 
+#footer {
+  padding-top:10px;
+}
+
 #theme-toggle {
   float:right;
 }
@@ -49,8 +54,9 @@
   padding-bottom:5px;
 }
 
-#tab-block > button {
+.tab {
   margin-right: 3px;
+  width:45px;
 }
 
 .modal-overlay {
@@ -116,6 +122,7 @@
 
 #volume-control {
   margin-right: 5px;
+  width:45px;
 }
 
 .study-flashcard {
@@ -180,12 +187,9 @@
   display: block;
   margin: 0 auto;
   max-height: 500px;
-  max-width: 500px;
+  max-width: 100%;
   border: 2px solid gray;
 }
 
-#help-block > p {
-  display: block;
-  margin: 0 auto;
-  max-width: 70%;
+#help-block {
 }
