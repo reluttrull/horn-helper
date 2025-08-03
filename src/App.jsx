@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react'
-import { FaBookOpen, FaChartLine, FaGear, FaPlay, FaArrowLeft, FaArrowRight, FaSun, FaMoon } from 'react-icons/fa6';
+import { FaBookOpen, FaChartLine, FaGear, FaPlay, FaQuestion, FaArrowLeft, FaArrowRight, FaSun, FaMoon } from 'react-icons/fa6';
 import './App.css'
 import ErrorBoundary from './components/ErrorBoundary.jsx';
 import { FingeringPractice } from './components/FingeringPractice.jsx';
 import { Settings } from './components/Settings.jsx';
 import { Leaderboard } from './components/Leaderboard.jsx';
 import { Study } from './components/Study.jsx';
+import { Help } from './components/Help.jsx';
 import { LocalStorageKeys, Themes } from './utils/GlobalKeys.js';
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
     SETTINGS: 'settings',
     MYLEADERBOARD: 'myLeaderboard',
     GLOBALLEADERBOARD: 'globalLeaderboard',
-    STUDY: 'study'
+    STUDY: 'study',
+    HELP: 'help'
   };
   const [tab, setTab] = useState(Tabs.FINGERINGPRACTICE);
 
@@ -87,6 +89,8 @@ function App() {
               onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
         <button alt="leaderboard" title="Leaderboard" 
               onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
+        <button alt="help" title="Help" 
+              onClick={() => {setTab(Tabs.HELP)}}><FaQuestion /></button>
         <button alt="light/dark theme" title="Light/Dark Theme" id="theme-toggle" 
               onClick={() => toggleTheme()}>
                 {theme == Themes.DARKMODE ? <FaArrowLeft /> : <FaSun />}
@@ -99,6 +103,7 @@ function App() {
         { tab == Tabs.STUDY ? <Study /> : <div></div>}
         { tab == Tabs.SETTINGS ? <div><h3>Settings</h3><Settings /></div> : <div></div>}
         { tab == Tabs.MYLEADERBOARD ? <Leaderboard /> : <div></div>}
+        { tab == Tabs.HELP ? <Help /> : <div></div>}
       </ErrorBoundary>)}
     </>
   )

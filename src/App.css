@@ -175,3 +175,16 @@
 .leaderboard-cell {
   white-space: nowrap;
 }
+
+#help-block > img {
+  display: block;
+  margin: 0 auto;
+  max-height: 500px;
+  max-width: 500px;
+  border: 2px solid gray;
+}
+
+#help-block > p {
+  width: 700px;
+  max-width: 90%;
+}
