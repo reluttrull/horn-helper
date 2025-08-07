@@ -59,6 +59,10 @@
   width:45px;
 }
 
+.score-column > h5 {
+  margin: 5px;
+}
+
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -192,4 +196,5 @@
 }
 
 #help-block {
+  max-width:800px;
 }

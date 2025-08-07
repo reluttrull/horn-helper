@@ -294,10 +294,10 @@ export const FingeringPractice = () => {
         <div className="column">  
           <img className="flashcard" src={"/horn-helper" + fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
         </div>
-        <div className="column">
+        <div className="column score-column">
           <button id="volume-control" onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
-          <h4 className="console-style">Score = {score}</h4>
+          <h5 className="console-style">Score = {score}</h5>
         </div>
       </div>
       <div className={gameOver ? "visible" : "invisible"}>
