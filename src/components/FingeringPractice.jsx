@@ -241,7 +241,7 @@ export const FingeringPractice = () => {
       combination = "nothing selected";
     }
     let noteFingerings = [];
-    noteFingerings = getDefaultFingeringsForHornType(currentCard.current, hornType)[0];
+    noteFingerings = getDefaultFingeringsForHornType(currentCard.current, hornType);
     // if we got it right...
     if (noteFingerings.includes(combination)) answerClick(true, combination);
     // either way, return what we have down
