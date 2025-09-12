@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LocalStorageKeys, Themes } from "../utils/GlobalKeys.js";
 
 export const Help = () => {
-const [theme, setTheme] = useState(localStorage.getItem(LocalStorageKeys.THEME));
+const [theme] = useState(localStorage.getItem(LocalStorageKeys.THEME));
 
   return (
     <>
