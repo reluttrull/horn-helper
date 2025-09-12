@@ -1,4 +1,6 @@
 import React, { useEffect, useCallback, useState, useRef } from "react";
+import { FaVolumeXmark, FaVolumeHigh } from 'react-icons/fa6';
+import * as Tone from 'tone';
 import { CountdownTimer } from './CountdownTimer.jsx';
 import { LocalStorageKeys, Ranges, HornTypes, AccidentalSettings } from "../utils/GlobalKeys.js";
 import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMost, 
@@ -6,8 +8,6 @@ import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMo
   twoOctavesAccidentalsAll } from '../utils/Structures.js';
 import { getScores } from "../utils/DataAccess.js";
 import fingerings from '../data/fingeringChart.json';
-import * as Tone from 'tone';
-import { FaVolumeXmark, FaVolumeHigh } from 'react-icons/fa6';
 
 export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
@@ -18,12 +18,13 @@ export const FingeringPractice = () => {
   const [initials, setInitials] = useState("");
   const [displayCard, setDisplayCard] = useState(0);
   let currentCard = useRef(0);
+  let myNotes = [];
   // user settings
   const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
   const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
   const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
 
-  // horn key ids
+  // button names
   const ButtonNames = {
     T: "buttonT",
     ONE: "button1",
@@ -31,76 +32,8 @@ export const FingeringPractice = () => {
     THREE: "button3",
     O: "buttonO"
   }
-
-  // check to see if the user already has down the combination for the next card
-  // (if so, we'll skip this card, so they don't get free points)
-  const alreadyHaveKeysDown = (keysDown, possibleNextFingerings) => {
-    let i = 0;
-    while (i < possibleNextFingerings.length) {
-      if (possibleNextFingerings[i].split('').every(char => keysDown.includes(char))) {
-        return true;
-      }
-      i++;
-    }
-    return false;
-  };
-
-  // handle keyboard shortcuts
-  const handleKeyPress = useCallback((event) => {
-    if (event.key == 'x') {
-      handleButtonClickOn(ButtonNames.T);
-    } else if (event.key == 'd') {
-      handleButtonClickOn(ButtonNames.ONE);
-    } else if (event.key == 'e') {
-      handleButtonClickOn(ButtonNames.TWO);
-    } else if (event.key == '3') {
-      handleButtonClickOn(ButtonNames.THREE);
-    } else if (event.key == 'o') {
-      handleButtonClickOn(ButtonNames.O);
-    } else if (event.key == 'c') {
-      handleClear();
-    }
-  }, []);
-
-  // handle keyboard shortcuts
-  const handleKeyUp = useCallback((event) => {
-    if (event.key == 'x') {
-      handleButtonClickOff(ButtonNames.T);
-    } else if (event.key == 'd') {
-      handleButtonClickOff(ButtonNames.ONE);
-    } else if (event.key == 'e') {
-      handleButtonClickOff(ButtonNames.TWO);
-    } else if (event.key == '3') {
-      handleButtonClickOff(ButtonNames.THREE);
-    } else if (event.key == 'o') {
-      handleButtonClickOff(ButtonNames.O);
-    } else if (event.key == 'c') {
-      setButtonStates({
-        buttonT: false,
-        button1: false,
-        button2: false,
-        button3: false,
-        buttonO: false
-      });
-    }
-  }, []);
-
-  // listen for keyboard shortcuts
-  useEffect(() => {
-    document.addEventListener('keydown', handleKeyPress);
-    return () => {
-      document.removeEventListener('keydown', handleKeyPress);
-    };
-  }, [handleKeyPress]);
-
-  useEffect(() => {
-    document.addEventListener('keyup', handleKeyUp);
-    return () => {
-      document.removeEventListener('keyup', handleKeyUp);
-    };
-  }, [handleKeyUp]);
-
-  //button logic
+  
+  //button states
   const [buttonStates, setButtonStates] = useState({
     buttonT: false,
     button1: false,
@@ -109,7 +42,81 @@ export const FingeringPractice = () => {
     buttonO: false
   });
 
-  // handle emergency clear all (probably don't need anymore)
+  const audioSamples = {
+        "Bb2" : "/horn-helper/samples/Bb2.mp3",
+        "D3" : "/horn-helper/samples/D3.mp3",
+        "F3" : "/horn-helper/samples/F3.mp3",
+        "A3" : "/horn-helper/samples/A3.mp3",
+        "C4" : "/horn-helper/samples/C4.mp3",
+        "E4" : "/horn-helper/samples/E4.mp3",
+        "G4" : "/horn-helper/samples/G4.mp3",
+      };
+
+  // check to see if the user already has down the combination for the next card
+  // (if so, we'll skip this card, so they don't get free points)
+  const alreadyHasKeysDown = (keysDown, possibleNextFingerings) => {
+    let i = 0;
+    while (i < possibleNextFingerings.length) {
+      // if user has 12 down, we still want to skip next fingerings of 1 or 2
+      if (possibleNextFingerings[i].split('').every(char => keysDown.includes(char))) {
+        return true;
+      }
+      i++;
+    }
+    return false;
+  };
+
+  // handle keyboard shortcuts: on
+  const handleKeyPress = useCallback((event) => {
+    if (event.key == 'x') {
+      handleButtonClick(ButtonNames.T, true);
+    } else if (event.key == 'd') {
+      handleButtonClick(ButtonNames.ONE, true);
+    } else if (event.key == 'e') {
+      handleButtonClick(ButtonNames.TWO, true);
+    } else if (event.key == '3') {
+      handleButtonClick(ButtonNames.THREE, true);
+    } else if (event.key == 'o') {
+      handleButtonClick(ButtonNames.O, true);
+    } else if (event.key == 'c') {
+      handleClear();
+    }
+  }, []);
+
+  // handle keyboard shortcuts: off
+  const handleKeyUp = useCallback((event) => {
+    if (event.key == 'x') {
+      handleButtonClick(ButtonNames.T, false);
+    } else if (event.key == 'd') {
+      handleButtonClick(ButtonNames.ONE, false);
+    } else if (event.key == 'e') {
+      handleButtonClick(ButtonNames.TWO, false);
+    } else if (event.key == '3') {
+      handleButtonClick(ButtonNames.THREE, false);
+    } else if (event.key == 'o') {
+      handleButtonClick(ButtonNames.O, false);
+    } else if (event.key == 'c') {
+      handleClear();
+    }
+  }, []);
+
+  // listen for keyboard shortcuts: on
+  useEffect(() => {
+    document.addEventListener('keydown', handleKeyPress);
+    return () => {
+      document.removeEventListener('keydown', handleKeyPress);
+    };
+  }, [handleKeyPress]);
+
+  // listen for keyboard shortcuts: off
+  useEffect(() => {
+    document.addEventListener('keyup', handleKeyUp);
+    return () => {
+      document.removeEventListener('keyup', handleKeyUp);
+    };
+  }, [handleKeyUp]);
+
+  // handle emergency clear all (probably don't need anymore, keep for testing)
   const handleClear = () => {
     setButtonStates({
       buttonT: false,
@@ -121,17 +128,10 @@ export const FingeringPractice = () => {
   }
 
   // set button states for just this button
-  const handleButtonClickOn = (button) => {
+  const handleButtonClick = (button, isOn) => {
     setButtonStates((prevState) => ({
       ...prevState,
-      [button]: true,
-    }));
-  };
-
-  const handleButtonClickOff = (button) => {
-    setButtonStates((prevState) => ({
-      ...prevState,
-      [button]: false,
+      [button]: isOn,
     }));
   };
 
@@ -149,33 +149,8 @@ export const FingeringPractice = () => {
     }
   }
 
-  // most of the time we get here, it's to handle correct answer and move on
-  // need to refactor and split this up a bit
-	const answerClick = (isCorrect, thisCombination) => {
-    let oldcard = currentCard.current;
-    // play audio of correct answer
-    if (isCorrect && soundOn && fingerings[oldcard]) {
-      const sampler = new Tone.Sampler({
-        "Bb2" : "/horn-helper/samples/Bb2.mp3",
-        "D3" : "/horn-helper/samples/D3.mp3",
-        "F3" : "/horn-helper/samples/F3.mp3",
-        "A3" : "/horn-helper/samples/A3.mp3",
-        "C4" : "/horn-helper/samples/C4.mp3",
-        "E4" : "/horn-helper/samples/E4.mp3",
-        "G4" : "/horn-helper/samples/G4.mp3",
-      }, function(){
-        //sampler will repitch the closest sample
-        console.log('ready and playing ' + fingerings[oldcard].soundingPitch);
-        sampler.triggerAttackRelease(fingerings[oldcard].soundingPitch, "2n");
-      }).toDestination();
-    }
-    //move on to next card
-		currentCard.current = parseInt(Math.random() * fingerings.length);
-    console.log(currentCard.current);
-    // gather user's possible notes to draw from
-    // probably need to pull this out and only perform once
+  const updateMyNotes = () => {
     let baseNotes = range == Ranges.ONEOCTAVE ? oneOctave : twoOctaves;
-    let myNotes = [];
     if (useAccidentals == AccidentalSettings.EASY) {
       myNotes = baseNotes.concat((range == Ranges.ONEOCTAVE ? oneOctaveAccidentalsEasy : twoOctavesAccidentalsEasy));
     } else if (useAccidentals == AccidentalSettings.MOST) {
@@ -185,11 +160,34 @@ export const FingeringPractice = () => {
     } else {
       myNotes = Array.from(baseNotes);
     }
+  }
+
+  useEffect(() => {
+    updateMyNotes();
+  }, [range, useAccidentals]);
+
+  // most of the time we get here, it's to handle correct answer and move on
+	const answerClick = (isCorrect, thisCombination) => {
+    let oldcard = currentCard.current;
+    // play audio of correct answer
+    if (isCorrect && soundOn && fingerings[oldcard]) {
+      const sampler = new Tone.Sampler(audioSamples, function(){
+        //sampler will repitch the closest sample
+        sampler.triggerAttackRelease(fingerings[oldcard].soundingPitch, "2n");
+      }).toDestination();
+    }
+    //move on to next card
+		currentCard.current = parseInt(Math.random() * fingerings.length);
+    console.log(currentCard.current);
+    console.log(myNotes);
+    // gather user's possible notes to draw from
+    // only update if empty for some reason
+    if (myNotes.length < 1) updateMyNotes();
 
     // if card is not in my list, or this fingering contained in previous fingering:
     // move on to another random card
     while (!myNotes.includes(fingerings[currentCard.current].noteId) 
-      || (thisCombination && alreadyHaveKeysDown(thisCombination, 
+      || (thisCombination && alreadyHasKeysDown(thisCombination, 
             getDefaultFingeringsForHornType(currentCard.current, hornType)[0]))) {
       currentCard.current = parseInt(Math.random() * fingerings.length);
     }
@@ -201,7 +199,7 @@ export const FingeringPractice = () => {
 		}
 	};
 
-  // this runs constantly, checking if buttons pressed match target fingerings
+  // this updates constantly, checking if buttons pressed match target fingerings
   const checkCombination = () => {
     const { buttonT, button1, button2, button3, buttonO } = buttonStates;
     let combination = "";
@@ -271,6 +269,7 @@ export const FingeringPractice = () => {
     setGameOver(false);
     setGameStarted(false);
   }
+
   // make sure user settings are up to date and start game
   const handleGameStart = () => {
     setHornType(localStorage.getItem(LocalStorageKeys.HORNTYPE));
@@ -285,6 +284,7 @@ export const FingeringPractice = () => {
       // populate initials based on most recent score, if present
       setInitials(getScores()[0].initials);
     };
+    // make sure first card is different each time
 		answerClick(false);
   }, []);
 
@@ -313,44 +313,44 @@ export const FingeringPractice = () => {
       <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.THREE)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.THREE)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.THREE)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.THREE)}>
+                  onMouseDown={() => handleButtonClick(ButtonNames.THREE, true)}
+                  onTouchStart={() => handleButtonClick(ButtonNames.THREE, true)}
+                  onMouseUp={() => handleButtonClick(ButtonNames.THREE, false)}
+                  onTouchEnd={() => handleButtonClick(ButtonNames.THREE, false)}>
             3 (3)
           </button>
         </div>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.TWO)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.TWO)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.TWO)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.TWO)}>
+                  onMouseDown={() => handleButtonClick(ButtonNames.TWO, true)}
+                  onTouchStart={() => handleButtonClick(ButtonNames.TWO, true)}
+                  onMouseUp={() => handleButtonClick(ButtonNames.TWO, false)}
+                  onTouchEnd={() => handleButtonClick(ButtonNames.TWO, false)}>
             2 (e)
           </button>
         </div>
         <div>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.ONE)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.ONE)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.ONE)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.ONE)}>
+                  onMouseDown={() => handleButtonClick(ButtonNames.ONE, true)}
+                  onTouchStart={() => handleButtonClick(ButtonNames.ONE, true)}
+                  onMouseUp={() => handleButtonClick(ButtonNames.ONE, false)}
+                  onTouchEnd={() => handleButtonClick(ButtonNames.ONE, false)}>
             1 (d)
           </button>
         </div>
         <div>
           <button className={hornType == HornTypes.DOUBLEHORN ? "key" : "invisible key"}
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.T)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.T)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.T)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.T)}>
+                  onMouseDown={() => handleButtonClick(ButtonNames.T, true)}
+                  onTouchStart={() => handleButtonClick(ButtonNames.T, true)}
+                  onMouseUp={() => handleButtonClick(ButtonNames.T, false)}
+                  onTouchEnd={() => handleButtonClick(ButtonNames.T, false)}>
             T (x)
           </button>
           <button className="key"
-                  onMouseDown={() => handleButtonClickOn(ButtonNames.O)}
-                  onTouchStart={() => handleButtonClickOn(ButtonNames.O)}
-                  onMouseUp={() => handleButtonClickOff(ButtonNames.O)}
-                  onTouchEnd={() => handleButtonClickOff(ButtonNames.O)}>
+                  onMouseDown={() => handleButtonClick(ButtonNames.O, true)}
+                  onTouchStart={() => handleButtonClick(ButtonNames.O, true)}
+                  onMouseUp={() => handleButtonClick(ButtonNames.O, false)}
+                  onTouchEnd={() => handleButtonClick(ButtonNames.O, false)}>
             open (o)
           </button>
         </div>
