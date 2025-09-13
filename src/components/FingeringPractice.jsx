@@ -18,6 +18,7 @@ export const FingeringPractice = () => {
   const [score, setScore] = useState(0);
   const [initials, setInitials] = useState("");
   const [displayCard, setDisplayCard] = useState(0);
+  let buttonMashingPenalty = false;
   let currentCard = useRef(0);
   let myNotes = [];
   // user settings
@@ -146,16 +147,20 @@ export const FingeringPractice = () => {
     if (millis - recentButtonClicks[0] < 800) {
       console.log("mashing!");
       // do something about button mashing
+      buttonMashingPenalty = true;
       setButtonMashing(true);
       setTimeout(() => {
+        buttonMashingPenalty = false;
         setButtonMashing(false); // reenable after 2 second penalty
       }, 2000)
     } else {
-      // if not button mashing, we're ok to click button
-      setButtonStates((prevState) => ({
-        ...prevState,
-        [button]: true,
-      }));
+      if (!buttonMashingPenalty) {
+        // if not button mashing, we're ok to click button
+        setButtonStates((prevState) => ({
+          ...prevState,
+          [button]: true,
+        }));
+      }
     }
   };
 
