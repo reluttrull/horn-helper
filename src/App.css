@@ -121,7 +121,7 @@
 }
 
 .flashcard {
-  height: 1in;
+  height: 96px; /* 1in = 96px */
 }
 
 #volume-control {
@@ -130,7 +130,7 @@
 }
 
 .study-flashcard {
-  width: 1.6in;
+  width: 16em;
 }
 
 .study-fingerings {
@@ -187,14 +187,18 @@
   white-space: nowrap;
 }
 
+#help-block {
+  max-width:800px;
+}
+
+#help-block > div {
+  padding: 25px;
+}
+
 #help-block > img {
   display: block;
   margin: 0 auto;
   max-height: 500px;
   max-width: 100%;
   border: 2px solid gray;
-}
-
-#help-block {
-  max-width:800px;
 }

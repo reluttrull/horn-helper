@@ -6,9 +6,9 @@ import { oneOctave, twoOctaves, oneOctaveAccidentalsEasy, oneOctaveAccidentalsMo
   twoOctavesAccidentalsAll } from '../utils/Structures.js';
 
 export const Study = () => {
-  const [hornType, setHornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
-  const [range, setRange] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
-  const [useAccidentals, setUseAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
+  const [hornType] = useState(localStorage.getItem(LocalStorageKeys.HORNTYPE));
+  const [range] = useState(localStorage.getItem(LocalStorageKeys.RANGE));
+  const [useAccidentals] = useState(localStorage.getItem(LocalStorageKeys.USEACCIDENTALS));
 
   // show all the listed fingerings for each note
   const getAlternates = (fList) => {
@@ -44,7 +44,6 @@ export const Study = () => {
           default:
             return [];
         }
-        break;
       case Ranges.TWOOCTAVES:
         switch (useAccidentals) {
           case AccidentalSettings.EASY:
