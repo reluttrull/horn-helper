@@ -18,6 +18,10 @@
   color:#00FF00;
 }
 
+.dark-mode > * .warning {
+  color:red;
+}
+
 .dark-mode > * button {
   background-color: #1a1a1a;
   color: white;
@@ -32,6 +36,10 @@
   
 .light-mode > * .console-style {
   color: green;
+}
+
+.light-mode > * .warning {
+  color:darkred;
 }
 
 .light-mode > * a:hover {
@@ -82,6 +90,11 @@
 }
 .console-style {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.warning {
+  font-style:italic;
+  font-weight:800;
 }
 
 .logo {

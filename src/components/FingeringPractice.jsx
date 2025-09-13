@@ -13,6 +13,7 @@ export const FingeringPractice = () => {
   const [soundOn, setSoundOn] = useState(true);
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOver, setGameOver] = useState(false);
+  const [buttonMashing, setButtonMashing] = useState(false);
   const [timerRunning, setTimerRunning] = useState(null);
   const [score, setScore] = useState(0);
   const [initials, setInitials] = useState("");
@@ -127,12 +128,35 @@ export const FingeringPractice = () => {
     });
   }
 
+  let recentButtonClicks = [0,0,0,0,0,0,0,0,0,0];
+
   // set button states for just this button
   const handleButtonClick = (button, isOn) => {
-    setButtonStates((prevState) => ({
-      ...prevState,
-      [button]: isOn,
-    }));
+    // always let buttons unclick
+    if (!isOn) {
+      setButtonStates((prevState) => ({
+        ...prevState,
+        [button]: false,
+      }));
+      return;
+    }
+    let millis = Date.now();
+    recentButtonClicks = recentButtonClicks.slice(1).concat(millis);
+    console.log(recentButtonClicks);
+    if (millis - recentButtonClicks[0] < 800) {
+      console.log("mashing!");
+      // do something about button mashing
+      setButtonMashing(true);
+      setTimeout(() => {
+        setButtonMashing(false); // reenable after 2 second penalty
+      }, 2000)
+    } else {
+      // if not button mashing, we're ok to click button
+      setButtonStates((prevState) => ({
+        ...prevState,
+        [button]: true,
+      }));
+    }
   };
 
   // returns this card's (i's) fingerings for user's horn type (ht)
@@ -297,7 +321,7 @@ export const FingeringPractice = () => {
         <div className="column score-column">
           <button id="volume-control" onClick={() => setSoundOn(!soundOn)}>{soundOn ? <FaVolumeHigh /> : <FaVolumeXmark />}</button>
           {gameStarted ? <CountdownTimer initialTime={60} onDataSend={handleTimerData} /> : <button onClick={() => handleGameStart()}>Start</button>}
-          <h5 className="console-style">Score = {score}</h5>
+          {buttonMashing ? <span className="warning">no button mashing!</span> : <h5 className="console-style">Score = {score}</h5>}
         </div>
       </div>
       <div className={gameOver ? "visible" : "invisible"}>
