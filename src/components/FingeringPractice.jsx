@@ -318,7 +318,7 @@ export const FingeringPractice = () => {
   }, []);
 
   return (
-    <div id="fingering-practice">
+    <div>
       <div className="row">
         <div className="column">  
           <img className="flashcard" src={"/horn-helper" + fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />

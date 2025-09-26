@@ -137,7 +137,7 @@
   height: 1in;
 }
 
-#fingering-practice {
+.ib {
   display:inline-block;
 }
 
@@ -170,8 +170,15 @@
   margin:2px;
   border-radius: 50px / 25px;
   height: 1.1in;
-  width: 1.45in;
-  background: linear-gradient(90deg, #cccccc, #dddddd, #d0d0d0);
+  width: 1.45in;  
+  background: linear-gradient(90deg, 
+    #b7b7b7, 
+    #c2c2c2 25%, 
+    #9d9d9d 50%, 
+    #d2d2d2 75%, 
+    #b7b7b7);
+  background-size: 200% 200%;
+  animation: shine 3s linear infinite;
   color: black !important;
 }
 

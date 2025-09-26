@@ -70,7 +70,7 @@ function App() {
   }, []);
 
   return (
-    <>
+    <div className="ib">
     {/* show modal first time */}
       {checkFirstTime() && (
       <div className="modal-overlay">
@@ -107,7 +107,7 @@ function App() {
                 {theme == Themes.DARKMODE ? <FaMoon /> : <FaArrowRight />}
         </button>
       </div>
-    </>
+    </div>
   )
 }
 
