@@ -318,7 +318,7 @@ export const FingeringPractice = () => {
   }, []);
 
   return (
-    <div>
+    <div id="fingering-practice">
       <div className="row">
         <div className="column">  
           <img className="flashcard" src={"/horn-helper" + fingerings[displayCard].img} alt={fingerings[displayCard].noteId} />
@@ -339,7 +339,7 @@ export const FingeringPractice = () => {
         />
         <button onClick={handleSaveInitials}>Save</button>
       </div>
-      <div className={timerRunning ? "button-block visible" : "button blocks invisible"}>
+      <div className={timerRunning ? "button-block visible" : "button-block invisible"}>
         <div>
           <button className="key"
                   onMouseDown={() => handleButtonClick(ButtonNames.THREE, true)}
@@ -367,21 +367,25 @@ export const FingeringPractice = () => {
             1 (d)
           </button>
         </div>
-        <div>
-          <button className={hornType == HornTypes.DOUBLEHORN ? "key" : "invisible key"}
-                  onMouseDown={() => handleButtonClick(ButtonNames.T, true)}
-                  onTouchStart={() => handleButtonClick(ButtonNames.T, true)}
-                  onMouseUp={() => handleButtonClick(ButtonNames.T, false)}
-                  onTouchEnd={() => handleButtonClick(ButtonNames.T, false)}>
-            T (x)
-          </button>
-          <button className="key"
-                  onMouseDown={() => handleButtonClick(ButtonNames.O, true)}
-                  onTouchStart={() => handleButtonClick(ButtonNames.O, true)}
-                  onMouseUp={() => handleButtonClick(ButtonNames.O, false)}
-                  onTouchEnd={() => handleButtonClick(ButtonNames.O, false)}>
-            open (o)
-          </button>
+        <div className="row">
+          <div className="column">
+            <button className={hornType == HornTypes.DOUBLEHORN ? "key" : "invisible key"}
+                    onMouseDown={() => handleButtonClick(ButtonNames.T, true)}
+                    onTouchStart={() => handleButtonClick(ButtonNames.T, true)}
+                    onMouseUp={() => handleButtonClick(ButtonNames.T, false)}
+                    onTouchEnd={() => handleButtonClick(ButtonNames.T, false)}>
+              T (x)
+            </button>
+          </div>
+          <div className="column">
+            <button className="key"
+                    onMouseDown={() => handleButtonClick(ButtonNames.O, true)}
+                    onTouchStart={() => handleButtonClick(ButtonNames.O, true)}
+                    onMouseUp={() => handleButtonClick(ButtonNames.O, false)}
+                    onTouchEnd={() => handleButtonClick(ButtonNames.O, false)}>
+              open (o)
+            </button>
+          </div>
         </div>
       </div>
       <p className="invisible">{checkCombination()}</p>

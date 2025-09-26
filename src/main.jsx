@@ -8,3 +8,6 @@ createRoot(document.getElementById('root')).render(
     <App />
   </StrictMode>,
 )
+document.addEventListener('contextmenu', (event) => {
+  event.preventDefault();
+});
