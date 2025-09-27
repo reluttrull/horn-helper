@@ -134,7 +134,11 @@
 }
 
 .flashcard {
-  height: 96px; /* 1in = 96px */
+  height: 1in;
+}
+
+.ib {
+  display:inline-block;
 }
 
 #volume-control {
@@ -163,11 +167,29 @@
 }
 
 .key {
-  height: 1.14in;
-  width: 1.45in;
+  margin:2px;
+  border-radius: 50px / 25px;
+  height: 1.1in;
+  width: 1.45in;  
+  background: linear-gradient(90deg, 
+    #b7b7b7, 
+    #c2c2c2 25%, 
+    #9d9d9d 50%, 
+    #d2d2d2 75%, 
+    #b7b7b7);
+  background-size: 200% 200%;
+  animation: shine 3s linear infinite;
+  color: black !important;
+}
+
+.button-block {
+  background-image: url('/public/doublehornvalves.png');
+  background-size:cover;
+  width: 3in;
 }
 
 .row {
+  max-width: 100%;
   display: flex;
 }
 
@@ -180,16 +202,12 @@
   padding-right:5px;
 }
 
-.button-block {
-  width: 3in;
-}
-
 .invisible {
   display: none;
 }
 
 .visible {
-  display: inline;
+  display: inline-block;
 }
 
 .leaderboard {

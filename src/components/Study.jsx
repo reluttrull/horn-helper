@@ -86,10 +86,10 @@ export const Study = () => {
   // throw new Error("my error info")
 
   return (
-    <>
+    <div>
     <h3>{getHornTypeDisplay(hornType)} Fingering Chart</h3>
     {FingeringChart}
-    </>
+    </div>
   );
 };
 
