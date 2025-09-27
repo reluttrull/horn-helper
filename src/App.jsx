@@ -81,15 +81,15 @@ function App() {
         </div>
       </div>)}
       <div id="tab-block">
-        <button alt="play" title="Play" class="tab"
+        <button alt="play" title="Play" className="tab"
               onClick={() => {setTab(Tabs.FINGERINGPRACTICE)}}><FaPlay /></button>
-        <button alt="study" title="Study"  class="tab"
+        <button alt="study" title="Study"  className="tab"
               onClick={() => {setTab(Tabs.STUDY)}}><FaBookOpen /></button>
-        <button alt="settings" title="Settings"  class="tab"
+        <button alt="settings" title="Settings"  className="tab"
               onClick={() => {setTab(Tabs.SETTINGS)}}><FaGear /></button>
-        <button alt="leaderboard" title="Leaderboard"  class="tab"
+        <button alt="leaderboard" title="Leaderboard"  className="tab"
               onClick={() => {setTab(Tabs.MYLEADERBOARD)}}><FaChartLine /></button>
-        <button alt="help" title="Help"  class="tab"
+        <button alt="help" title="Help"  className="tab"
               onClick={() => {setTab(Tabs.HELP)}}><FaQuestion /></button>
       </div>
       {!checkFirstTime() && (

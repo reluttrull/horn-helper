@@ -38,26 +38,26 @@ export const Settings = ({ triggerParent }) => {
 
   return (
     <div>
-      <div>
-        <label className="question" htmlFor="dropdown">What type of horn do you play?</label>
-        <select id="hornTypeDropdown" value={hornType} onChange={handleHornTypeChange}>
+      <div className="setting setting-row">
+        <label className="question setting-column" htmlFor="dropdown">What type of horn do you play?</label>
+        <select id="horntype-dropdown" className="setting-column" value={hornType} onChange={handleHornTypeChange}>
           <option value="...">...</option>
           <option value={HornTypes.SINGLEBB}>Single Bb horn</option>
           <option value={HornTypes.SINGLEF}>Single F horn</option>
           <option value={HornTypes.DOUBLEHORN}>Double horn</option>
         </select>  
       </div>
-      <div>
-        <label className="question" htmlFor="dropdown">How wide a range do you want to practice?</label>
-        <select id="rangeDropdown" value={range} onChange={handleRangeChange}>
+      <div className="setting setting-row">
+        <label className="question setting-column" htmlFor="dropdown">How wide a range do you want to practice?</label>
+        <select id="range-dropdown" className="setting-column" value={range} onChange={handleRangeChange}>
           <option value="...">...</option>
           <option value={Ranges.ONEOCTAVE}>1 octave (C to C)</option>
           <option value={Ranges.TWOOCTAVES}>2 octaves (F to F)</option>
         </select>  
       </div>
-      <div>
-        <label className="question" htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
-        <select id="accidentalsDropdown" value={useAccidentals} onChange={handleAccidentalsChange}>
+      <div className="setting setting-row">
+        <label className="question setting-column" htmlFor="dropdown">How many accidentals (♭/♯) do you want to practice?</label>
+        <select id="accidentals-dropdown" className="setting-column" value={useAccidentals} onChange={handleAccidentalsChange}>
           <option value="...">...</option>
           <option value={AccidentalSettings.NO}>none</option>
           <option value={AccidentalSettings.EASY}>only a few of the most common</option>
