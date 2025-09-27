@@ -183,6 +183,8 @@
 }
 
 .button-block {
+  background-image: url('/public/doublehornvalves.png');
+  background-size:cover;
   width: 3in;
 }
 
