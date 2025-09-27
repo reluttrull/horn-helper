@@ -183,7 +183,7 @@
 }
 
 .button-block {
-  background-image: url('/public/doublehornvalves.png');
+  background-image: url('/doublehornvalves.png');
   background-size:cover;
   width: 3in;
 }
@@ -196,6 +196,35 @@
 .column {
   flex: 50%;
   padding-right:5px;
+}
+
+.setting-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; 
+}
+
+.setting-column {
+  flex: 1;
+  min-width: 200px;
+  padding: 10px;
+}
+
+@media (max-width: 600px) {
+  .setting-column {
+    flex: 100%;
+  }
+}
+
+.setting {
+  text-align:left;
+  padding-bottom:40px;
+}
+
+.setting select {
+  font-size: small;
+  height: auto;
+  max-height: 40px;
 }
 
 .question {
